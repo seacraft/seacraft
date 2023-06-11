@@ -43,3 +43,5 @@ Thumbs.db
 package-lock.json
 pnpm-lock.yaml
 .angular
+
+.npmrc

@@ -34,12 +34,12 @@ COPY --from=frontend /app/web/dist /build/server/src/Entrypoints/Seacraft.Web/ww
 RUN dotnet restore ./server/src/Entrypoints/Seacraft.Web/Seacraft.Web.csproj --configfile ./.nuget/NuGet.Config
 
 WORKDIR /build/server/src/Entrypoints/Seacraft.Web/
-RUN dotnet build Seacraft.Web.csproj.csproj  -nowarn:cs1591 -c Release
+RUN dotnet build Seacraft.Web.csproj  -nowarn:cs1591 -c Release
 
 # =====================================================
 FROM build AS publish
 
-RUN dotnet publish Seacraft.Web.csproj.csproj -c Release -o /app
+RUN dotnet publish Seacraft.Web.csproj -c Release -o /app
 
 # =====================================================
 FROM base AS final
