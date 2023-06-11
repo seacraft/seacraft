@@ -145,8 +145,8 @@ jobs:
 
       - name: Merge and push manifest on master branch
         if: github.ref == 'refs/heads/master'
-        run: python utility/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft"
+        run: python scripts/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft"
 
       - name: Merge and push manifest on release
         if: startsWith(github.ref, 'refs/tags/')
-        run: python utility/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft" ${{steps.version.outputs.result}}
+        run: python scripts/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft" ${{steps.version.outputs.result}}

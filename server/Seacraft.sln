@@ -29,19 +29,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EC205F80-DB70-4E32-A4ED-10365023153E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Common", "server\src\Core\Seacraft.Common\Seacraft.Common.csproj", "{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Common", "src\Core\Seacraft.Common\Seacraft.Common.csproj", "{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Abstractions", "server\src\Core\Seacraft.Abstractions\Seacraft.Abstractions.csproj", "{F9DBD197-D48F-4296-B388-B59C87084542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Abstractions", "src\Core\Seacraft.Abstractions\Seacraft.Abstractions.csproj", "{F9DBD197-D48F-4296-B388-B59C87084542}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Repositories", "server\src\Core\Seacraft.Repositories\Seacraft.Repositories.csproj", "{101E90BE-2133-4497-8029-87A2E091ADAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Repositories", "src\Core\Seacraft.Repositories\Seacraft.Repositories.csproj", "{101E90BE-2133-4497-8029-87A2E091ADAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services", "server\src\Core\Seacraft.Services\Seacraft.Services.csproj", "{5A16EED8-F5CC-4B9A-9CA0-D22A7EFDF331}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services", "src\Core\Seacraft.Services\Seacraft.Services.csproj", "{5A16EED8-F5CC-4B9A-9CA0-D22A7EFDF331}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Web", "server\src\Entrypoints\Seacraft.Web\Seacraft.Web.csproj", "{FD10435E-122E-4E0B-A1C8-2A2C7D2DAC0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft", "src\Entrypoints\Seacraft\Seacraft.csproj", "{FD10435E-122E-4E0B-A1C8-2A2C7D2DAC0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.DbMigrationTool", "server\src\Tools\Seacraft.DbMigrationTool\Seacraft.DbMigrationTool.csproj", "{D7E1F7DD-4B20-47DA-A751-A24FE02587C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.DbMigrationTool", "src\Tools\Seacraft.DbMigrationTool\Seacraft.DbMigrationTool.csproj", "{D7E1F7DD-4B20-47DA-A751-A24FE02587C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services.Tests", "server\test\Core\Seacraft.Services.Tests\Seacraft.Services.Tests.csproj", "{27FCC2F6-FDD5-4C0B-B230-95500E12E61C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services.Tests", "test\Core\Seacraft.Services.Tests\Seacraft.Services.Tests.csproj", "{27FCC2F6-FDD5-4C0B-B230-95500E12E61C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

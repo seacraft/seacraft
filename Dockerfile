@@ -29,17 +29,19 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /build
 
 COPY . .
-COPY --from=frontend /app/web/dist /build/server/src/Entrypoints/Seacraft.Web/wwwroot
+COPY --from=frontend /app/web/dist /build/server/src/Entrypoints/Seacraft/wwwroot
 
-RUN dotnet restore ./server/src/Entrypoints/Seacraft.Web/Seacraft.Web.csproj --configfile ./.nuget/NuGet.Config
+WORKDIR /build/server
 
-WORKDIR /build/server/src/Entrypoints/Seacraft.Web/
-RUN dotnet build Seacraft.Web.csproj  -nowarn:cs1591 -c Release
+RUN dotnet restore ./src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./.nuget/NuGet.Config
+
+WORKDIR /build/server/src/Entrypoints/Seacraft/
+RUN dotnet build Seacraft.csproj -nowarn:cs1591 -c Release
 
 # =====================================================
 FROM build AS publish
 
-RUN dotnet publish Seacraft.Web.csproj -c Release -o /app
+RUN dotnet publish Seacraft.csproj -c Release -o /app
 
 # =====================================================
 FROM base AS final
@@ -47,7 +49,7 @@ FROM base AS final
 WORKDIR /app
 
 COPY --from=publish /app .
-COPY --from=build /build/utility/run.sh ./run.sh
+COPY --from=build /build/scripts/run.sh ./run.sh
 
 ENV ASPNETCORE_URLS  http://*:5000
 ENV TZ Asia/Shanghai
