@@ -19,7 +19,7 @@ fi
 # Otherwise it loops forever, waking up every 60 seconds
 
 while sleep 60; do
-  ps aux |grep dotnet |grep -q -v grep
+  ps aux | grep dotnet | grep -q -v grep
   PROCESS_STATUS=$?
   # If the greps above find anything, they exit with 0 status
   # If they are not both 0, then something is wrong
@@ -29,4 +29,6 @@ while sleep 60; do
   fi
 done
 
-trap : TERM INT; sleep infinity & wait
+trap : TERM INT
+sleep infinity &
+wait

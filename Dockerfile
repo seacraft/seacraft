@@ -15,8 +15,8 @@ RUN cd ./web/ && npm run build
 # =====================================================
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 
-RUN apt update && apt install -y \
-    libgdiplus procps && \
+RUN apt update && \
+    apt install -y libgdiplus procps && \
     ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll \
     apt clean
 
