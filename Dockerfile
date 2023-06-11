@@ -31,7 +31,7 @@ WORKDIR /build
 COPY . .
 COPY --from=frontend /app/web/dist /build/server/src/Entrypoints/Seacraft.Web/wwwroot
 
-RUN dotnet restore ./server/src/Entrypoints/Seacraft.Web/Seacraft.Web.csproj --configfile ./.nuget/NuGet.config
+RUN dotnet restore ./server/src/Entrypoints/Seacraft.Web/Seacraft.Web.csproj --configfile ./.nuget/NuGet.Config
 
 WORKDIR /build/server/src/Entrypoints/Seacraft.Web/
 RUN dotnet build Seacraft.Web.csproj.csproj  -nowarn:cs1591 -c Release
