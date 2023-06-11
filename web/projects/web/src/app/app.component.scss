@@ -1,0 +1,12 @@
+@import '../variables';
+
+:host {
+  // background-color: #ccc;
+
+  .app-main {
+    @include full-width-height();
+    @include no-margin-padding();
+    overflow: hidden;
+  }
+
+}

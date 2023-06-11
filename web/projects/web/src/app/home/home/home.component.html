@@ -1,0 +1,52 @@
+<div class="container p-5">
+  <button class="btn btn-lg btn-block btn-outline-primary"
+    (click)="vm.updateMessage()">
+    <svg-icon path="bi/app-indicator" iconClass="bi-lg"></svg-icon>
+    {{vm.message | async}}
+  </button>
+
+  <div *ngIf="(vm.info | async) as info" class="alert alert-warning mt-3">
+    {{info}}
+  </div>
+
+  <button class="m-2 btn btn-outline-primary">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-warning">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-danger" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-dark" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-success" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-info" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-light" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+  <button class="m-2 btn btn-outline-secondary" fill="currentColor">
+    Example button
+    <svg-icon path="bi/app-indicator"></svg-icon>
+  </button>
+
+</div>
