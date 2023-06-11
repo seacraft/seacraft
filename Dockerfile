@@ -17,7 +17,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 
 RUN apt update && \
     apt install -y libgdiplus procps && \
-    ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll \
+    ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll && \
     apt clean
 
 WORKDIR /docker
