@@ -29,13 +29,13 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /build
 
 COPY . .
-COPY --from=frontend /app/web/dist /build/server/src/Entrypoints/Seacraft/wwwroot
+COPY --from=frontend /app/web/dist /build/engine/src/Entrypoints/Seacraft/wwwroot
 
-WORKDIR /build/server
+WORKDIR /build/engine
 
 RUN dotnet restore ./src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./.nuget/NuGet.Config
 
-WORKDIR /build/server/src/Entrypoints/Seacraft/
+WORKDIR /build/engine/src/Entrypoints/Seacraft/
 RUN dotnet build Seacraft.csproj -nowarn:cs1591 -c Release
 
 # =====================================================
