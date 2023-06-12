@@ -37,9 +37,10 @@ ARG BUILDPLATFORM
 
 WORKDIR /build
 
-COPY ./src/Entrypoints/Seacraft/Seacraft.csproj ./src/Entrypoints/Seacraft/Seacraft.csproj
+COPY ./engine/src/Entrypoints/Seacraft/Seacraft.csproj ./engine/src/Entrypoints/Seacraft/Seacraft.csproj
+COPY ./engine/.nuget ./engine/.nuget
 
-RUN dotnet restore ./src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./.nuget/NuGet.Config -a $TARGETARCH
+RUN dotnet restore ./engine/src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./engine/.nuget/NuGet.Config -a $TARGETARCH
 
 COPY . .
 COPY --from=frontend /app/web/dist /build/engine/src/Entrypoints/Seacraft/wwwroot
