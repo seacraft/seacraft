@@ -5,148 +5,164 @@ concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 
-jobs:
-  docker_build:
-    name: Build ${{ matrix.arch }} Image
-    runs-on: ubuntu-latest
+env:
+  REGISTRY_IMAGE: seacraft/seacraft
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - arch: amd64
-            name: amd64
-          - arch: arm64
-            name: arm64
+        platform:
+          - linux/amd64
+          - linux/arm64
 
     steps:
-      - name: Checkout base
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ github.ref }}-${{ matrix.arch }}
-          restore-keys: |
-            ${{ github.ref }}-${{ matrix.arch }}
+          versionSpec: "5.x"
+
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0
+        with:
+          useConfigFile: true
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            latest
+            ${{ env.GitVersion_SemVer }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        with:
-          platforms: linux/${{ matrix.arch }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Docker login
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Get commit SHA
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-
-      - name: Build and export
+      - name: Build and push by digest
         id: build
-        if: github.ref == 'refs/heads/master'
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
-          push: true
-          platforms: linux/${{ matrix.arch }}
-          tags: ${{ secrets.DOCKER_USERNAME }}/seacraft:${{ matrix.name }}-latest
-          build-args: |
-            SHA=${{ steps.vars.outputs.sha_short }}
-          outputs: type=image,push=true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          context: .
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
-      - name: Replace tag without `v`
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/github-script@v1
-        id: version
-        with:
-          script: |
-            return context.payload.ref.replace(/\/?refs\/tags\/v/, '')
-          result-encoding: string
+      - name: Export digest
+        run: |
+          mkdir -p /tmp/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "/tmp/digests/${digest#sha256:}"
 
-      - name: Build release and export
-        id: build_rel
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          platforms: linux/${{ matrix.arch }}
-          tags: ${{ secrets.DOCKER_USERNAME }}/seacraft:${{ matrix.name }}-${{steps.version.outputs.result}}
-          build-args: |
-            SHA=${{ steps.version.outputs.result }}
-          outputs: type=image,push=true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-
-      - name: Save digest
-        if: github.ref == 'refs/heads/master'
-        run: echo ${{ steps.build.outputs.digest }} > /tmp/digest.txt
-
-      - name: Save release digest
-        if: startsWith(github.ref, 'refs/tags/')
-        run: echo ${{ steps.build_rel.outputs.digest }} > /tmp/digest.txt
-
-      - name: Upload artifact
+      - name: Upload digest
         uses: actions/upload-artifact@v3
         with:
-          name: digest_${{ matrix.name }}
-          path: /tmp/digest.txt
+          name: digests
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
 
-  manifests:
-    name: Build manifests
-    needs: [docker_build]
+  merge:
     runs-on: ubuntu-latest
+    needs:
+      - build
     steps:
-      - name: Checkout base
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # https://github.com/docker/setup-qemu-action
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      # https://github.com/docker/setup-buildx-action
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
         with:
-          config-inline: |
-            [worker.oci]
-              max-parallelism = 1
+          versionSpec: "5.x"
 
-      - name: Download artifact
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0
+        with:
+          useConfigFile: true
+
+      - name: Download digests
         uses: actions/download-artifact@v3
         with:
-          path: /tmp/images/
+          name: digests
+          path: /tmp/digests
 
-      - name: Docker login
+      - name: Display GitVersion variables
+        run: |
+          echo "Major: ${{ env.GitVersion_Major }}"
+          echo "Minor: ${{ env.GitVersion_Minor }}"
+          echo "Patch: ${{ env.GitVersion_Patch }}"
+          echo "PreReleaseTag: ${{ env.GitVersion_PreReleaseTag }}"
+          echo "PreReleaseTagWithDash: ${{ env.GitVersion_PreReleaseTagWithDash }}"
+          echo "PreReleaseLabel: ${{ env.GitVersion_PreReleaseLabel }}"
+          echo "PreReleaseNumber: ${{ env.GitVersion_PreReleaseNumber }}"
+          echo "WeightedPreReleaseNumber: ${{ env.GitVersion_WeightedPreReleaseNumber }}"
+          echo "BuildMetaData: ${{ env.GitVersion_BuildMetaData }}"
+          echo "BuildMetaDataPadded: ${{ env.GitVersion_BuildMetaDataPadded }}"
+          echo "FullBuildMetaData: ${{ env.GitVersion_FullBuildMetaData }}"
+          echo "MajorMinorPatch: ${{ env.GitVersion_MajorMinorPatch }}"
+          echo "SemVer: ${{ env.GitVersion_SemVer }}"
+          echo "LegacySemVer: ${{ env.GitVersion_LegacySemVer }}"
+          echo "LegacySemVerPadded: ${{ env.GitVersion_LegacySemVerPadded }}"
+          echo "AssemblySemVer: ${{ env.GitVersion_AssemblySemVer }}"
+          echo "AssemblySemFileVer: ${{ env.GitVersion_AssemblySemFileVer }}"
+          echo "FullSemVer: ${{ env.GitVersion_FullSemVer }}"
+          echo "InformationalVersion: ${{ env.GitVersion_InformationalVersion }}"
+          echo "BranchName: ${{ env.GitVersion_BranchName }}"
+          echo "EscapedBranchName: ${{ env.GitVersion_EscapedBranchName }}"
+          echo "Sha: ${{ env.GitVersion_Sha }}"
+          echo "ShortSha: ${{ env.GitVersion_ShortSha }}"
+          echo "NuGetVersionV2: ${{ env.GitVersion_NuGetVersionV2 }}"
+          echo "NuGetVersion: ${{ env.GitVersion_NuGetVersion }}"
+          echo "NuGetPreReleaseTagV2: ${{ env.GitVersion_NuGetPreReleaseTagV2 }}"
+          echo "NuGetPreReleaseTag: ${{ env.GitVersion_NuGetPreReleaseTag }}"
+          echo "VersionSourceSha: ${{ env.GitVersion_VersionSourceSha }}"
+          echo "CommitsSinceVersionSource: ${{ env.GitVersion_CommitsSinceVersionSource }}"
+          echo "CommitsSinceVersionSourcePadded: ${{ env.GitVersion_CommitsSinceVersionSourcePadded }}"
+          echo "UncommittedChanges: ${{ env.GitVersion_UncommittedChanges }}"
+          echo "CommitDate: ${{ env.GitVersion_CommitDate }}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            latest
+            ${{ env.GitVersion_SemVer }}
+
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Replace tag without `v`
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: actions/github-script@v1
-        id: version
-        with:
-          script: |
-            return context.payload.ref.replace(/\/?refs\/tags\/v/, '')
-          result-encoding: string
+      - name: Build and Push Image
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
 
-      - name: Merge and push manifest on master branch
-        if: github.ref == 'refs/heads/master'
-        run: python scripts/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft"
-
-      - name: Merge and push manifest on release
-        if: startsWith(github.ref, 'refs/tags/')
-        run: python scripts/merge_manifest.py "${{ secrets.DOCKER_USERNAME }}/seacraft" ${{steps.version.outputs.result}}
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
