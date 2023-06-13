@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seacraft.Framework.Core
+namespace Seacraft.Framework.Core.Extensions
 {
     public static partial class Extensions
     {
