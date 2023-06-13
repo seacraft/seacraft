@@ -31,9 +31,15 @@ install_nodejs() {
     rm "$FILE_NAME"
 }
 
+install_dotnet() {
+    wget https://dot.net/v1/dotnet-install.sh
+    chmod a+x dotnet-install.sh
+    ./dotnet-install.sh --channel 7.0
+    rm dotnet-install.sh
+}
+
 hash dotnet 2>/dev/null || {
-    echo "Failed to find dotnet."
-    exit 1
+    install_dotnet
 }
 
 hash node 2>/dev/null || {
