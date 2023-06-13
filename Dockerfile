@@ -68,11 +68,11 @@ ARG TARGETARCH
 ARG BUILDPLATFORM
 
 LABEL org.opencontainers.image.url="https://hub.docker.com/r/seacraft/seacraft/" \
-      org.opencontainers.image.source="https://github.com/seacraft/seacraft" \      
-      org.opencontainers.image.vendor="seacraft" \
-      org.opencontainers.image.title="seacraft" \
-      org.opencontainers.image.description="Dockerized seacraft" \
-      org.opencontainers.image.authors="seacraft"
+    org.opencontainers.image.source="https://github.com/seacraft/seacraft" \
+    org.opencontainers.image.vendor="seacraft" \
+    org.opencontainers.image.title="seacraft" \
+    org.opencontainers.image.description="Dockerized seacraft" \
+    org.opencontainers.image.authors="seacraft"
 
 WORKDIR /app
 
