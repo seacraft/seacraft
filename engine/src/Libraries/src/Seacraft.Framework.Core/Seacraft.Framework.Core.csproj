@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 
 		<IsPackable>true</IsPackable>
-		<PackageId>LLama.WebAPI.Unofficial</PackageId>
+		<PackageId>Seacraft.Framework.Core</PackageId>
 		<RepositoryUrl Condition="'$(REPOSITORY_URL)' != ''">$(REPOSITORY_URL)</RepositoryUrl>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
