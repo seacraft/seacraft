@@ -29,8 +29,8 @@ jobs:
         uses: actions/setup-dotnet@v3
 
       # Build the solution
-      - run: dotnet restore && dotnet build --configuration Release
-        working-directory: ${{ github.workspace }}/engine/src
+      - run: dotnet restore Seacraft.sln && dotnet build Seacraft.sln --configuration Release
+        working-directory: ${{ github.workspace }}/engine
 
       # Publish the NuGet packages
       - name: Publish
