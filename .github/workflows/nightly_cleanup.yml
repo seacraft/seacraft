@@ -1,0 +1,26 @@
+name: "nightly artifacts cleanup"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *" # every night at 1 am UTC
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ github.token }}
+          expire-in: 1days # Set this to g to delete all artifacts
+
+  del_runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 1
+          keep_minimum_runs: 3

@@ -35,6 +35,8 @@ ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG BUILDPLATFORM
 
+ARG RELEASE_VERSION
+
 WORKDIR /build
 
 COPY ./engine/src/Entrypoints/Seacraft/Seacraft.csproj ./engine/src/Entrypoints/Seacraft/Seacraft.csproj

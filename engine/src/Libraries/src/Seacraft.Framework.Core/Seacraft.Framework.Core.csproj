@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>true</IsPackable>
+		<PackageId>LLama.WebAPI.Unofficial</PackageId>
+		<RepositoryUrl Condition="'$(REPOSITORY_URL)' != ''">$(REPOSITORY_URL)</RepositoryUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+		<Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
+		<VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.3.0</VersionPrefix>
+		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString(`yyyyMMdd-HHmm`))</VersionSuffix>
+	</PropertyGroup>
+
+</Project>

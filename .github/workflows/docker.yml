@@ -7,6 +7,7 @@ concurrency:
 
 env:
   REGISTRY_IMAGE: seacraft/seacraft
+  RELEASE_VERSION: "1.${{ github.run_number }}.${{ github.run_attempt }}"
 
 jobs:
   build:
@@ -63,6 +64,8 @@ jobs:
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          build-args: |
+            RELEASE_VERSION=${{ env.RELEASE_VERSION }}
 
       - name: Export digest
         run: |
