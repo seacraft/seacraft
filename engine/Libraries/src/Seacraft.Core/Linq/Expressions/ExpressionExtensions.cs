@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace Seacraft.Core.Linq.Expressions
 {
+    /// <summary>
+    /// linq related expression extensions 
+    /// </summary>
     public static class ExpressionExtensions
     {
 

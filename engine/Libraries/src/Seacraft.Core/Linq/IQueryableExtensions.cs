@@ -9,6 +9,9 @@ using Seacraft.Core.Linq.Expressions;
 
 namespace Seacraft.Core.Linq
 {
+    /// <summary>
+    /// IQueryable Interface related expression extensions
+    /// </summary>
     public static class IQueryableExtensions
     {
         private static readonly MethodInfo OrderByMethod;
