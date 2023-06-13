@@ -6,37 +6,36 @@
 //
 // THE SOFTWARE IS PROVIDED \u201CAS IS\u201D, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+using System.ComponentModel;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Seacraft.Framework.Core.Linq.Expressions
+namespace Seacraft.Framework.Core.Messaging
 {
-    public class ParameterRebinder: ExpressionVisitor
+    /// <summary>
+    /// http status code
+    /// </summary>
+    public enum ResultType
     {
-        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
 
-        public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
-        {
-            this.map = (map ?? new Dictionary<ParameterExpression, ParameterExpression>());
-        }
+        [Description("Unauthorized information")]
+        Info = 203,
 
-        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
-        {
-            return new ParameterRebinder(map).Visit(exp);
-        }
+        [Description("OK")]
+        Success = 200,
 
-        protected override Expression VisitParameter(ParameterExpression p)
-        {
-            ParameterExpression? parameterExpression;
-            if (this.map.TryGetValue(p, out parameterExpression))
-            {
-                p = parameterExpression;
-            }
-            return base.VisitParameter(p);
-        }
+        [Description("Internal server error")]
+        Error = 500,
+
+        [Description("Error occurred while encrypting the user password")]
+        UnAuth = 401,
+
+        [Description("Permission denied")]
+        Forbidden = 403,
+
+        [Description("Page not found")]
+        NoFound = 404,
     }
 }

@@ -8,35 +8,28 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Seacraft.Framework.Core.Linq.Expressions
+namespace Seacraft.Framework.Core.Messaging
 {
-    public class ParameterRebinder: ExpressionVisitor
+    /// <summary>
+    /// The paging list request parameters
+    /// </summary>
+    public interface IPagedListRequest : IRequest
     {
-        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
+        /// <summary>
+        /// Current page number
+        /// </summary>
+        int PageIndex { get; set; }
 
-        public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
-        {
-            this.map = (map ?? new Dictionary<ParameterExpression, ParameterExpression>());
-        }
+        /// <summary>
+        /// How many pieces per page
+        /// </summary>
+        int PageSize { get; set; }
 
-        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
-        {
-            return new ParameterRebinder(map).Visit(exp);
-        }
-
-        protected override Expression VisitParameter(ParameterExpression p)
-        {
-            ParameterExpression? parameterExpression;
-            if (this.map.TryGetValue(p, out parameterExpression))
-            {
-                p = parameterExpression;
-            }
-            return base.VisitParameter(p);
-        }
+        /// <summary>
+        /// The Skip how many pages
+        /// </summary>
+        int Skip { get; }
     }
 }

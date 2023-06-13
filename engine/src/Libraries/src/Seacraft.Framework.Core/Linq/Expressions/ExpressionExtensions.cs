@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seacraft.Core.Linq.Expressions
+namespace Seacraft.Framework.Core.Linq.Expressions
 {
     /// <summary>
     /// linq related expression extensions 

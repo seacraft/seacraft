@@ -6,37 +6,38 @@
 //
 // THE SOFTWARE IS PROVIDED \u201CAS IS\u201D, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Seacraft.Framework.Core.Linq.Expressions
+namespace Seacraft.Framework.Core.Messaging
 {
-    public class ParameterRebinder: ExpressionVisitor
+    /// <summary>
+    /// This is the paging list base class for returns
+    /// </summary>
+    public interface IPagedListResult
     {
-        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
+        /// <summary>
+        /// Current page number
+        /// </summary>
+        int PageIndex { get; set; }
 
-        public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
-        {
-            this.map = (map ?? new Dictionary<ParameterExpression, ParameterExpression>());
-        }
+        /// <summary>
+        /// How many pieces per page
+        /// </summary>
+        int PageSize { get; set; }
 
-        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
-        {
-            return new ParameterRebinder(map).Visit(exp);
-        }
+        /// <summary>
+        /// number of total pages
+        /// </summary>
+        int PageCount { get; }
 
-        protected override Expression VisitParameter(ParameterExpression p)
-        {
-            ParameterExpression? parameterExpression;
-            if (this.map.TryGetValue(p, out parameterExpression))
-            {
-                p = parameterExpression;
-            }
-            return base.VisitParameter(p);
-        }
+        /// <summary>
+        /// total number
+        /// </summary>
+        int TotalItemCount { get; set; }
     }
+
 }

@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Seacraft.Core.Linq.Expressions;
+using Seacraft.Framework.Core.Linq.Expressions;
 
-namespace Seacraft.Core.Linq
+namespace Seacraft.Framework.Core.Linq
 {
     /// <summary>
     /// IQueryable Interface related expression extensions

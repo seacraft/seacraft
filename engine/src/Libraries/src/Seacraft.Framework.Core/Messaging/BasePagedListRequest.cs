@@ -8,35 +8,66 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Seacraft.Framework.Core.Linq.Expressions
+namespace Seacraft.Framework.Core.Messaging
 {
-    public class ParameterRebinder: ExpressionVisitor
+    /// <summary>
+    /// This is the paging query request parameter
+    /// </summary>
+    public class BasePagedListRequest : IPagedListRequest
     {
-        private readonly Dictionary<ParameterExpression, ParameterExpression> map;
+        private int _pageIndex = 1;
 
-        public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
+        /// <summary>
+        /// The current page is the first page by default
+        /// </summary>
+        public int PageIndex
         {
-            this.map = (map ?? new Dictionary<ParameterExpression, ParameterExpression>());
-        }
-
-        public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
-        {
-            return new ParameterRebinder(map).Visit(exp);
-        }
-
-        protected override Expression VisitParameter(ParameterExpression p)
-        {
-            ParameterExpression? parameterExpression;
-            if (this.map.TryGetValue(p, out parameterExpression))
+            get
             {
-                p = parameterExpression;
+                return _pageIndex;
             }
-            return base.VisitParameter(p);
+            set
+            {
+                var val = value;
+                if (val > 0)
+                {
+                    _pageIndex = val;
+                }
+            }
+        }
+
+        private int _pageSize = 10;
+
+        /// <summary>
+        /// The default number of items per page is ten
+        /// </summary>
+        public int PageSize
+        {
+            get
+            {
+                return _pageSize;
+            }
+            set
+            {
+                var val = value;
+                if (val > 0)
+                {
+                    _pageSize = val;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The Skip how many pages
+        /// </summary>
+        public int Skip
+        {
+            get
+            {
+                return (this.PageIndex - 1) * this.PageSize;
+            }
         }
     }
 }
