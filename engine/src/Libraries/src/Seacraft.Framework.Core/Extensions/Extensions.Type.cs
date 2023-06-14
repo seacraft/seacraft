@@ -19,12 +19,12 @@ using System.Threading.Tasks;
 namespace Seacraft.Framework.Core.Extensions
 {
     /// <summary>
-    /// 类型<see cref="Type"/>辅助扩展方法类
+    /// Type <see cref="Type"/> Auxiliary extension method class
     /// </summary>
     public static partial class Extensions
     {
         /// <summary>
-        /// 判断类型是否为Nullable类型
+        /// IsNullableType is Check whether the type is Nullable type 
         /// </summary>
         /// <param name="type"> 要处理的类型 </param>
         /// <returns> 是返回True，不是返回False </returns>
