@@ -22,17 +22,17 @@ namespace Seacraft.Framework.Core.Extensions
         /// <summary>
         /// IsNullableType is Check whether the type is Nullable type 
         /// </summary>
-        /// <param name="type"> 要处理的类型 </param>
-        /// <returns> 是返回True，不是返回False </returns>
+        /// <param name="type"> The type to be processed </param>
+        /// <returns> It's return false, not return true </returns>
         public static bool IsNullableType(this Type type)
         {
             return ((type != null) && type.IsGenericType) && (type.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
         /// <summary>
-        /// 由类型的Nullable类型返回实际类型
+        /// GetNonNummableType is Returns the actual type by the Nullable type of the type
         /// </summary>
-        /// <param name="type"> 要处理的类型对象 </param>
+        /// <param name="type"> Type object to handle </param>
         /// <returns> </returns>
         public static Type GetNonNummableType(this Type type)
         {
@@ -40,9 +40,9 @@ namespace Seacraft.Framework.Core.Extensions
         }
 
         /// <summary>
-        /// 通过类型转换器获取Nullable类型的基础类型
+        /// GetUnNullableType Get the base type of the Nullable type using the type converter
         /// </summary>
-        /// <param name="type"> 要处理的类型对象 </param>
+        /// <param name="type"> Type object to handle </param>
         /// <returns> </returns>
         public static Type GetUnNullableType(this Type type)
         {
@@ -56,11 +56,11 @@ namespace Seacraft.Framework.Core.Extensions
         }
 
         /// <summary>
-        /// 获取类型的Description特性描述信息
+        /// ToTypeDescription is  Description Gets the feature description of the type
         /// </summary>
-        /// <param name="type">类型对象</param>
-        /// <param name="inherit">是否搜索类型的继承链以查找描述特性</param>
-        /// <returns>返回Description特性描述信息，如不存在则返回类型的全名</returns>
+        /// <param name="type">Type object</param>
+        /// <param name="inherit">Whether to search a type's inheritance chain to find a descriptive property</param>
+        /// <returns>Description Indicates the feature description, or the full name of the type if it does not exist</returns>
         public static string ToTypeDescription(this Type type, bool inherit = false)
         {
             var desc = type.GetAttribute<DescriptionAttribute>(inherit);
@@ -68,11 +68,11 @@ namespace Seacraft.Framework.Core.Extensions
         }
 
         /// <summary>
-        /// 获取成员元数据的Description特性描述信息
+        ///ToDescription is Get the Description feature description of the member metadata
         /// </summary>
-        /// <param name="member">成员元数据对象</param>
-        /// <param name="inherit">是否搜索成员的继承链以查找描述特性</param>
-        /// <returns>返回Description特性描述信息，如不存在则返回成员的名称</returns>
+        /// <param name="member">Member metadata object</param>
+        /// <param name="inherit">Whether to search a member's inheritance chain to find a descriptive feature</param>
+        /// <returns>Description Indicates the feature description or the member name if it does not exist</returns>
         public static string ToDescription(this MemberInfo member, bool inherit = false)
         {
             var desc = member.GetAttribute<DescriptionAttribute>(inherit);
@@ -95,12 +95,12 @@ namespace Seacraft.Framework.Core.Extensions
 
 
         /// <summary>
-        /// 检查指定指定类型成员中是否存在指定的Attribute特性
+        /// HasAttribute is Checks whether the specified Attribute attribute exists in the member of the specified type
         /// </summary>
-        /// <typeparam name="T">要检查的Attribute特性类型</typeparam>
-        /// <param name="memberInfo">要检查的类型成员</param>
-        /// <param name="inherit">是否从继承中查找</param>
-        /// <returns>是否存在</returns>
+        /// <typeparam name="T">Attribute type to check</typeparam>
+        /// <param name="memberInfo">Type member to check</param>
+        /// <param name="inherit">Whether to look up from inheritance</param>
+        /// <returns>Existence or not</returns>
         public static bool HasAttribute<T>(this MemberInfo memberInfo, bool inherit = false) where T : Attribute
         {
             return memberInfo.IsDefined(typeof(T), inherit);
