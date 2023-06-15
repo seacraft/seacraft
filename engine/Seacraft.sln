@@ -55,6 +55,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.Core", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.Core.Tests", "src\Libraries\tests\Seacraft.Framework.Core.Tests\Seacraft.Framework.Core.Tests.csproj", "{3AF2A906-A452-40C9-9F3B-3999F17B2366}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.GitLab.Client", "src\Libraries\src\Seacraft.GitLab.Client\Seacraft.GitLab.Client.csproj", "{C820E0A7-86D2-487A-9316-4C63C5CB7839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.GitLab.Client.Tests", "src\Libraries\tests\Seacraft.GitLab.Client.Tests\Seacraft.GitLab.Client.Tests.csproj", "{894381DC-974F-4BF0-A2CC-81740470FC90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,14 @@ Global
 		{3AF2A906-A452-40C9-9F3B-3999F17B2366}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF2A906-A452-40C9-9F3B-3999F17B2366}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF2A906-A452-40C9-9F3B-3999F17B2366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C820E0A7-86D2-487A-9316-4C63C5CB7839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C820E0A7-86D2-487A-9316-4C63C5CB7839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C820E0A7-86D2-487A-9316-4C63C5CB7839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C820E0A7-86D2-487A-9316-4C63C5CB7839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894381DC-974F-4BF0-A2CC-81740470FC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894381DC-974F-4BF0-A2CC-81740470FC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894381DC-974F-4BF0-A2CC-81740470FC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894381DC-974F-4BF0-A2CC-81740470FC90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +131,8 @@ Global
 		{F96BE0F0-3A0C-49E6-82D9-72DE668DAB83} = {B7B44A21-30C8-4843-9649-EA7E46A5398D}
 		{A72B859F-ABC4-4C98-9C8D-099AA803BEF2} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
 		{3AF2A906-A452-40C9-9F3B-3999F17B2366} = {F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}
+		{C820E0A7-86D2-487A-9316-4C63C5CB7839} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
+		{894381DC-974F-4BF0-A2CC-81740470FC90} = {F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D810A06-6FA0-469A-8941-62F9A9E85DE9}
