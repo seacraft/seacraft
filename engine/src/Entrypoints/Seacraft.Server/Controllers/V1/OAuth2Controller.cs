@@ -13,21 +13,30 @@ namespace Seacraft.Server.Controllers.V1
     [ApiController]
     public class OAuth2Controller : ApiV1Controller
     {
+        private const string GitLabAuth = "https://gitlab.com/oauth/authorize";
+
+
         public OAuth2Controller() 
         {
                
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public ServiceResult Authorization(string source) 
-        {
-            
-        }
+        //[AllowAnonymous]
+        //[HttpGet]
+        //public ServiceResult Authorization(string source) 
+        //{
+        //    UrlBuilder.FromBaseUrl(GitLabAuth)
+        //   .queryParam("response_type", "code")
+        //   .queryParam("client_id", config.clientId)
+        //   .queryParam("redirect_uri", config.redirectUri)
+        //   .queryParam("state", getRealState(state))
+        //   .queryParam("scope", config.scope.IsNullOrWhiteSpace() ? "read_user+openid+profile+email" : config.scope)
+        //   .build();
+        //}
 
-        public ServiceResult Callback() 
-        {
+        //public ServiceResult Callback() 
+        //{
 
-        }
+        //}
     }
 }

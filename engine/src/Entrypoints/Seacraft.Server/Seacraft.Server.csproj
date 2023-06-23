@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Libraries\src\Seacraft.Framework.Core\Seacraft.Framework.Core.csproj" />
   </ItemGroup>
 
 </Project>

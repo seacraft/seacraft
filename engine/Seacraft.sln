@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.GitLab.Client.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Server", "src\Entrypoints\Seacraft.Server\Seacraft.Server.csproj", "{30C64516-616F-4CEE-969B-F6293B6358A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Framework.OAuth", "src\Libraries\src\Seacraft.Framework.OAuth\Seacraft.Framework.OAuth.csproj", "{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{30C64516-616F-4CEE-969B-F6293B6358A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30C64516-616F-4CEE-969B-F6293B6358A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30C64516-616F-4CEE-969B-F6293B6358A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{C820E0A7-86D2-487A-9316-4C63C5CB7839} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
 		{894381DC-974F-4BF0-A2CC-81740470FC90} = {F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}
 		{30C64516-616F-4CEE-969B-F6293B6358A9} = {975AB7C6-88FF-4A41-B70A-73DC867AF263}
+		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D810A06-6FA0-469A-8941-62F9A9E85DE9}

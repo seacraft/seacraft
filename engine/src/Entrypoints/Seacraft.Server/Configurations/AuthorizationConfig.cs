@@ -136,8 +136,8 @@ namespace Seacraft.Server.Configurations
 
                     SubjectId = "1",
                     //ProviderSubjectId="pwdClient",
-                    Username = "Richard",
-                    Password = "Richard",
+                    Username = "huhouhua",
+                    Password = "huhouhua",
                     Claims =
                     {
                         new Claim(JwtClaimTypes.Name, "huhouhua"),
