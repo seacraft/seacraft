@@ -10,7 +10,7 @@ public class SnowFlakeTests
 {
 
     private readonly IServiceProvider _serviceProvider;
-    private readonly IIdService _idService;
+    private readonly IIdGenerationService _idService;
 
     public SnowFlakeTests()
     {
@@ -28,7 +28,7 @@ public class SnowFlakeTests
 
         this._serviceProvider = services.BuildServiceProvider();
 
-        this._idService = this._serviceProvider.GetService<IIdService>();
+        this._idService = this._serviceProvider.GetService<IIdGenerationService>();
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class SnowFlakeTests
         var list = new List<long>();
         for (int i = 0; i < 10; i++)
         {
-            var id = await this._idService.GetDistributedIdAsync();
+            var id = await this._idService.GenerateNewDistributedIdAsync();
             Assert.True(id > 0);
             list.Add(id);
         }

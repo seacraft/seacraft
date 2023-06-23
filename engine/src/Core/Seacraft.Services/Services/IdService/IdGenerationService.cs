@@ -7,18 +7,18 @@ using Snowflake;
 namespace Seacraft.Services
 {
 
-    public class IdService
-        : IIdService
+    public class IdGenerationService
+        : IIdGenerationService
     {
 
         private readonly SnowFlake _snowFlake;
 
-        public IdService(SnowFlake snowFlake)
+        public IdGenerationService(SnowFlake snowFlake)
         {
             this._snowFlake = snowFlake;
         }
 
-        public Task<long> GetDistributedIdAsync(CancellationToken? token = null)
+        public Task<long> GenerateNewDistributedIdAsync(CancellationToken? token = null)
         {
             var id = this._snowFlake.NextId();
             return Task.FromResult(id);

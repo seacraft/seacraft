@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Seacraft.Services
 {
 
-    public interface IIdService
+    public interface IIdGenerationService
     {
 
-        Task<long> GetDistributedIdAsync(CancellationToken? token = null);
+        Task<long> GenerateNewDistributedIdAsync(CancellationToken? token = null);
 
     }
 

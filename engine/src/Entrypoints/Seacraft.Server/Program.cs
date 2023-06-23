@@ -19,6 +19,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration(builder.Configuration);
 builder.Services.AddAuthorizationConfiguration(builder.Configuration);
 
+await Task.Delay(100);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

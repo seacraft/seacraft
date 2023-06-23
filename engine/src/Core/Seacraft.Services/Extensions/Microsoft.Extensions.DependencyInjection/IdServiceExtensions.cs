@@ -40,8 +40,10 @@ namespace Microsoft.Extensions.DependencyInjection
                         return new PostgresDistributedSynchronizationProvider(connection);
 
                     default:
+                        connection.Dispose();
+                        dbContext.Dispose();
                         var redisOptions = sp.GetService<IOptions<RedisCacheOptions>>();
-                        if (redisOptions?.Value != null)
+                        if (redisOptions?.Value is not null)
                         {
                             var redisConnection = ConnectionMultiplexer.Connect(redisOptions.Value.Configuration);
                             return new RedisDistributedSynchronizationProvider(redisConnection.GetDatabase());
@@ -53,13 +55,13 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddRedisDistributedLock(this IServiceCollection services, Action<RedisCacheOptions> setup)
+        public static IServiceCollection AddRedisDistributedLock(this IServiceCollection services, Action<RedisCacheOptions> setup = null)
         {
             services.AddSingleton<IDistributedLockProvider>(sp =>
             {
                 var redisOptions = sp.GetService<IOptions<RedisCacheOptions>>();
                 var options = redisOptions?.Value;
-                if (options == null)
+                if (options is null && setup is not null)
                 {
                     options = new RedisCacheOptions();
                     setup?.Invoke(options);
@@ -84,6 +86,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddSnowFlakeService(this IServiceCollection services, Action<SnowFlakeOptions> setup)
         {
+           
             services.Configure(setup);
             services.AddSingleton<SnowFlakeService>();
             services.AddHostedService(provider =>
@@ -93,7 +96,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var snowFlakeService = sp.GetRequiredService<SnowFlakeService>();
                 return snowFlakeService.CreateSnowFlakeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
             });
-            services.AddTransient<IIdService, IdService>();
+            services.AddTransient<IIdGenerationService, IdGenerationService>();
             return services;
         }
 
