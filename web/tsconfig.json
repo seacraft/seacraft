@@ -3,9 +3,9 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "app-shared": [
+      "@seacraft/app-shared": [
         "dist/app-shared/app-shared",
-        "dist/app-shared"
+        "./projects/app-shared"
       ]
     },
     "baseUrl": "./",
@@ -22,10 +22,10 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "ES2022",
     "lib": [
-      "es2020",
+     "ES2022",
       "dom"
     ]
   },

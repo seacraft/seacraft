@@ -2,6 +2,7 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
+    "analytics": false,
     "packageManager": "pnpm",
     "defaultCollection": "@angular-eslint/schematics"
   },
@@ -11,7 +12,7 @@
       "projectType": "library",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
+          "style": "less",
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -57,11 +58,11 @@
         }
       }
     },
-    "web": {
+    "portal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
+          "style": "less",
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -89,23 +90,23 @@
           "strict": true
         }
       },
-      "root": "projects/web",
-      "sourceRoot": "projects/web/src",
+      "root": "projects/portal",
+      "sourceRoot": "projects/portal/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/web",
-            "index": "projects/web/src/index.html",
-            "main": "projects/web/src/main.ts",
-            "polyfills": "projects/web/src/polyfills.ts",
-            "tsConfig": "projects/web/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "baseHref": "/ng-seed/web/",
+            "outputPath": "dist/portal",
+            "index": "projects/portal/src/index.html",
+            "main": "projects/portal/src/main.ts",
+            "polyfills": "projects/portal/src/polyfills.ts",
+            "tsConfig": "projects/portal/tsconfig.app.json",
+            "inlineStyleLanguage": "less",
+            "baseHref": "/",
             "assets": [
-              "projects/web/src/favicon.ico",
-              "projects/web/src/assets",
+              "projects/portal/src/favicon.ico",
+              "projects/portal/src/assets",
               {
                 "input": "node_modules/bootstrap-icons/icons",
                 "glob": "*.svg",
@@ -115,10 +116,16 @@
                 "input": "node_modules/@fortawesome/fontawesome-free/svgs",
                 "glob": "**/*.svg",
                 "output": "assets/icons/fa"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
               }
             ],
             "styles": [
-              "projects/web/src/styles.scss"
+              "projects/app-shared/styles.less",
+              "projects/portal/src/styles.less"
             ],
             "scripts": []
           },
@@ -138,8 +145,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "projects/web/src/environments/environment.ts",
-                  "with": "projects/web/src/environments/environment.prod.ts"
+                  "replace": "projects/portal/src/environments/environment.ts",
+                  "with": "projects/portal/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -157,12 +164,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "web:build:production"
+              "browserTarget": "portal:build:production"
             },
             "development": {
-              "browserTarget": "web:build:development"
+              "browserTarget": "portal:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -170,11 +180,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "portal:build"
           }
         }
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "portal"
 }

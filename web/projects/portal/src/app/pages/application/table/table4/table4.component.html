@@ -1,0 +1,23 @@
+<nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th nzWidth="60px"></th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+        </tr>
+        <tr [nzExpand]="expandSet.has(data.id)">
+          <span>{{ data.description }}</span>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>

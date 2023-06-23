@@ -1,0 +1,210 @@
+@table-bg: transparent;
+@table-header-bg: transparent;
+@table-header-color: @heading-color;
+@table-header-sort-bg: @background-color-base;
+@table-body-sort-bg: transparent;
+@table-row-hover-bg: @background-color-light;
+@table-selected-row-color: inherit;
+@table-selected-row-bg: @primary-1;
+@table-body-selected-sort-bg: @table-selected-row-bg;
+@table-selected-row-hover-bg: darken(@table-selected-row-bg, 2%);
+@table-expanded-row-bg: transparent;
+@table-padding-vertical: 16px;
+@table-padding-horizontal: 16px;
+@table-padding-vertical-md: (@table-padding-vertical * 3 / 4);
+@table-padding-horizontal-md: (@table-padding-horizontal / 2);
+@table-padding-vertical-sm: (@table-padding-vertical / 2);
+@table-padding-horizontal-sm: (@table-padding-horizontal / 2);
+@table-border-color: @border-color-split;
+@table-border-radius-base: @border-radius-base;
+@table-footer-bg: @background-color-light;
+@table-footer-color: @heading-color;
+@table-header-bg-sm: @table-header-bg;
+@table-font-size: @font-size-base;
+@table-font-size-md: @table-font-size;
+@table-font-size-sm: @table-font-size;
+@table-header-cell-split-color: rgba(0, 0, 0, 0.06);
+// Sorter
+// Legacy: `table-header-sort-active-bg` is used for hover not real active
+@table-header-sort-active-bg: rgba(0, 0, 0, 0.04);
+@table-fixed-header-sort-active-bg: hsv(0, 0, 96%);
+
+// Filter
+@table-header-filter-active-bg: rgba(0, 0, 0, 0.04);
+@table-filter-btns-bg: inherit;
+@table-filter-dropdown-bg: @component-background;
+@table-expand-icon-bg: @component-background;
+@table-selection-column-width: 32px;
+// Sticky
+@table-sticky-scroll-bar-bg: fade(#000, 35%);
+@table-sticky-scroll-bar-radius: 4px;
+
+
+
+.ant-table-thead>tr>th {
+    color: rgb(165 178 199) !important;
+    font-size: 0.625rem;
+    font-weight: 700;
+}
+
+.ant-pagination-item,
+.ant-pagination-prev,
+.ant-pagination-next {
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    cursor: pointer;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-family: "Plus Jakarta Display", Helvetica, Arial, sans-serif;
+    border: 1px solid rgb(160, 174, 192);
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+    transition: all 150ms ease-in 0s;
+    background-image: initial;
+    background-position-y: initial;
+    background-repeat: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+    color: rgb(160, 174, 192);
+    border-radius: 10rem;
+    padding: 0.6875rem 0.6875rem 0.625rem;
+    margin: 0px 0.125rem;
+    pointer-events: auto;
+    font-weight: 400;
+    font-size: 0.875rem;
+    width: 2.25rem;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    background-size: 150% !important;
+    background-position-x: 25% !important;
+}
+
+.ant-pagination-item-active {
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    cursor: pointer;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-family: "Plus Jakarta Display", Helvetica, Arial, sans-serif;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+    transition: all 150ms ease-in 0s;
+    box-shadow: rgba(0, 0, 0, 0.11) 0rem 0.25rem 0.4375rem -0.0625rem, rgba(0, 0, 0, 0.07) 0rem 0.125rem 0.25rem -0.0625rem;
+    background-image: linear-gradient(310deg, rgb(0, 117, 255), rgb(33, 212, 253));
+    background-position-y: initial;
+    background-repeat: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    color: rgb(255, 255, 255);
+    border-radius: 10rem;
+    padding: 0.6875rem 0.6875rem 0.625rem;
+    margin: 0px 0.125rem;
+    pointer-events: none;
+    font-weight: 400;
+    font-size: 0.875rem;
+    width: 2.25rem;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    background-size: 150% !important;
+    background-position-x: 25% !important;
+}
+
+.ant-pagination-item:hover {
+    border-color: #fff;
+    background-color: rgb(233, 236, 239);
+}
+
+.ant-pagination-item-active a {
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+}
+
+.ant-pagination-item-ellipsis {
+    color: #ffff !important
+}
+
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+    color: rgb(165 178 199) !important;
+    background-color: transparent;
+    border: 0px solid #d9d9d9;
+}
+
+.ant-pagination-prev:hover,
+.ant-pagination-next:hover {
+    border-color: #fff;
+    background-color: rgb(233, 236, 239);
+}
+
+.ant-table table {
+    color: rgb(165 178 199) !important;
+}
+
+.ant-pagination-item a {
+    color: rgb(165 178 199)
+}
+
+.ant-table-thead>tr>th {
+    border-bottom: 0.0625rem solid #2d3748
+}
+
+.ant-table-tbody>tr>td {
+    border-bottom: 0.0625rem solid rgb(45, 55, 72);
+}
+
+.ant-table-tbody>tr.ant-table-row:hover>td,
+.ant-table-tbody>tr>td.ant-table-cell-row-hover {
+    background: rgba(10, 14, 35, 0.49)
+}
+
+
+
+// table sort
+.ant-table-thead th.ant-table-column-sort{
+    background: none;
+}
+
+
+
+
+.ant-table-row-expand-icon:focus, .ant-table-row-expand-icon:hover, .ant-table-row-expand-icon:active{
+    border-color: #2d3748;
+}
+
+.ant-table-row-expand-icon:focus, .ant-table-row-expand-icon:hover{
+    color: inherit;
+}
+.ant-table-row-expand-icon{
+    width: 19px;
+    height: 19px;
+    background: #2d3748;
+    border: 2px solid #2d3748;
+}

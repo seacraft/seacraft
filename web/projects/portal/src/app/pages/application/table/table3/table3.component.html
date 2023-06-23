@@ -1,0 +1,35 @@
+<ng-template #indicatorTemplate>
+  <span nz-icon nzType="loading" class="ant-spin-dot ant-spin-dot-spin"></span>
+</ng-template>
+<nz-spin [nzSpinning]="loading"  [nzIndicator]="indicatorTemplate" [nzSize]="'large'" >
+  
+  <nz-table
+  nzShowSizeChanger
+  [nzData]="listOfRandomUser"
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+  >
+  <thead>
+    <tr>
+      <th nzColumnKey="name" [nzSortFn]="true">Name</th>
+      <th nzColumnKey="gender" [nzFilters]="filterGender" [nzFilterFn]="true">Gender</th>
+      <th nzColumnKey="email" [nzSortFn]="true">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of listOfRandomUser">
+      <td>{{ data.name.first }} {{ data.name.last }}</td>
+      <td>{{ data.gender }}</td>
+      <td>{{ data.email }}</td>
+    </tr>
+  </tbody>
+  </nz-table>
+</nz-spin>
+
+
+
+
+  

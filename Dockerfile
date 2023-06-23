@@ -45,7 +45,7 @@ COPY ./engine/.nuget ./engine/.nuget
 RUN dotnet restore ./engine/src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./engine/.nuget/NuGet.Config -a $TARGETARCH
 
 COPY . .
-COPY --from=frontend /app/web/dist /build/engine/src/Entrypoints/Seacraft/wwwroot
+COPY --from=frontend /app/web/dist/portal /build/engine/src/Entrypoints/Seacraft/wwwroot
 
 WORKDIR /build/engine/src/Entrypoints/Seacraft/
 RUN dotnet build Seacraft.csproj -nowarn:cs1591 -c Release -a $TARGETARCH
