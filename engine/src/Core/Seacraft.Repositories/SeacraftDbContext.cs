@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Seacraft.Repositories
 {
+
     public class SeacraftDbContext
         : DbContext
     {
@@ -13,5 +14,7 @@ namespace Seacraft.Repositories
             : base(options)
         {
         }
+
     }
+
 }
