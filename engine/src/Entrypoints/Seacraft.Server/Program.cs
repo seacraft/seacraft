@@ -3,6 +3,7 @@
 // See the 'LICENSE' file in the project repository for more information.
 
 using Seacraft.Server.Configurations;
+using Seacraft.Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSwaggerConfig();
 app.UseIdentityServer();
 
 app.UseAuthorization();

@@ -4,7 +4,18 @@
 
 namespace Seacraft.Server.Extensions
 {
-    public class ApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
+        public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.ShowCommonExtensions();
+                options.EnableFilter();
+                options.DisplayRequestDuration();
+            });
+            return app;
+        }
     }
 }
