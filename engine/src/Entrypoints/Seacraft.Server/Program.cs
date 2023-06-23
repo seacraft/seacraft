@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddOptions().AddHttpContextAccessor().AddHttpClient();
-builder.Services.AddControllers(optipns => 
+builder.Services.AddApiRoutingConfiguration().AddControllers(optipns => 
 {
     optipns.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 }).AddNewtonsoftJson();

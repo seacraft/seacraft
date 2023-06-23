@@ -9,8 +9,17 @@ namespace Seacraft.Server.Configurations
 {
     public static class SwaggerConfig
     {
-        public static void AddSwaggerConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            if (services is null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+            if (configuration is null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -37,6 +46,8 @@ namespace Seacraft.Server.Configurations
                 });
             });
             services.AddSwaggerGenNewtonsoftSupport();
+
+            return services;
         }
     }
 }
