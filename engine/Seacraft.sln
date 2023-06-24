@@ -22,9 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		utility\build.sh = utility\build.sh
 		utility\build.web.sh = utility\build.web.sh
 		.github\workflows\ci.yml = .github\workflows\ci.yml
-		Dockerfile = Dockerfile
+		..\Dockerfile = ..\Dockerfile
 		README.md = README.md
 		utility\run.sh = utility\run.sh
+		..\scripts\run.sh = ..\scripts\run.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EC205F80-DB70-4E32-A4ED-10365023153E}"
@@ -57,9 +58,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.GitLab.Client", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.GitLab.Client.Tests", "src\Libraries\tests\Seacraft.GitLab.Client.Tests\Seacraft.GitLab.Client.Tests.csproj", "{894381DC-974F-4BF0-A2CC-81740470FC90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Server", "src\Entrypoints\Seacraft.Server\Seacraft.Server.csproj", "{30C64516-616F-4CEE-969B-F6293B6358A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Server", "src\Entrypoints\Seacraft.Server\Seacraft.Server.csproj", "{30C64516-616F-4CEE-969B-F6293B6358A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Framework.OAuth", "src\Libraries\src\Seacraft.Framework.OAuth\Seacraft.Framework.OAuth.csproj", "{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.OAuth", "src\Libraries\src\Seacraft.Framework.OAuth\Seacraft.Framework.OAuth.csproj", "{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

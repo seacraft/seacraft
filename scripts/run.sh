@@ -5,7 +5,7 @@
 export GitLab__BuildPack__ExecutorBranch="$commit_branch"
 
 # Start the first process
-dotnet Seacraft.Web.dll &
+dotnet Seacraft.Server.dll &
 status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start dotnet process: $status"

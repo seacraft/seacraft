@@ -1,6 +1,6 @@
 FROM node:14 AS frontend
 
-RUN npm -g i pnpm@6.32.15 husky
+RUN npm -g i pnpm@6.32.15
 
 WORKDIR /app
 
@@ -39,16 +39,16 @@ ARG RELEASE_VERSION
 
 WORKDIR /build
 
-COPY ./engine/src/Entrypoints/Seacraft/Seacraft.csproj ./engine/src/Entrypoints/Seacraft/Seacraft.csproj
+COPY ./engine/src/Entrypoints/Seacraft.Server/Seacraft.Server.csproj ./engine/src/Entrypoints/Seacraft.Server/Seacraft.Server.csproj
 COPY ./engine/.nuget ./engine/.nuget
 
-RUN dotnet restore ./engine/src/Entrypoints/Seacraft/Seacraft.csproj --configfile ./engine/.nuget/NuGet.Config -a $TARGETARCH
+RUN dotnet restore ./engine/src/Entrypoints/Seacraft.Server/Seacraft.Server.csproj --configfile ./engine/.nuget/NuGet.Config -a $TARGETARCH
 
 COPY . .
-COPY --from=frontend /app/web/dist/portal /build/engine/src/Entrypoints/Seacraft/wwwroot
+COPY --from=frontend /app/web/dist/portal /build/engine/src/Entrypoints/Seacraft.Server/wwwroot
 
-WORKDIR /build/engine/src/Entrypoints/Seacraft/
-RUN dotnet build Seacraft.csproj -nowarn:cs1591 -c Release -a $TARGETARCH
+WORKDIR /build/engine/src/Entrypoints/Seacraft.Server/
+RUN dotnet build Seacraft.Server.csproj -nowarn:cs1591 -c Release -a $TARGETARCH
 
 # =====================================================
 FROM build AS publish
@@ -57,7 +57,7 @@ ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG BUILDPLATFORM
 
-RUN dotnet publish --no-restore Seacraft.csproj -c Release -o /app -a $TARGETARCH
+RUN dotnet publish --no-restore Seacraft.Server.csproj -c Release -o /app -a $TARGETARCH
 
 # =====================================================
 FROM base AS final
