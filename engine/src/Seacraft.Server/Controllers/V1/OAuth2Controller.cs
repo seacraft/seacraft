@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Seacraft.Framework.Core.Messaging;
+using Seacraft.Core.Messaging;
 
 namespace Seacraft.Server.Controllers.V1
 {
