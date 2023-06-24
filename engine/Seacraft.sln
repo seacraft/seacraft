@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33626.354
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entrypoints", "Entrypoints", "{975AB7C6-88FF-4A41-B70A-73DC867AF263}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Presentation", "03_Presentation", "{975AB7C6-88FF-4A41-B70A-73DC867AF263}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Applications", "02_Applications", "{11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CEC09C03-08B8-41F0-95B3-E1811BA90E30}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{5350E579-EDC0-4AC3-B0C8-160C083D42CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4591B0F0-99F2-4081-9D47-7648EDE6CEFB}"
 EndProject
@@ -28,21 +26,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\scripts\run.sh = ..\scripts\run.sh
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EC205F80-DB70-4E32-A4ED-10365023153E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Abstractions", "src\Libraries\src\Seacraft.Abstractions\Seacraft.Abstractions.csproj", "{F9DBD197-D48F-4296-B388-B59C87084542}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Common", "src\Core\Seacraft.Common\Seacraft.Common.csproj", "{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Repositories", "src\Seacraft.Repositories\Seacraft.Repositories.csproj", "{101E90BE-2133-4497-8029-87A2E091ADAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Abstractions", "src\Core\Seacraft.Abstractions\Seacraft.Abstractions.csproj", "{F9DBD197-D48F-4296-B388-B59C87084542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services", "src\Seacraft.Services\Seacraft.Services.csproj", "{5A16EED8-F5CC-4B9A-9CA0-D22A7EFDF331}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Repositories", "src\Core\Seacraft.Repositories\Seacraft.Repositories.csproj", "{101E90BE-2133-4497-8029-87A2E091ADAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.DbMigrationTool", "src\Seacraft.DbMigrationTool\Seacraft.DbMigrationTool.csproj", "{D7E1F7DD-4B20-47DA-A751-A24FE02587C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services", "src\Core\Seacraft.Services\Seacraft.Services.csproj", "{5A16EED8-F5CC-4B9A-9CA0-D22A7EFDF331}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.DbMigrationTool", "src\Tools\Seacraft.DbMigrationTool\Seacraft.DbMigrationTool.csproj", "{D7E1F7DD-4B20-47DA-A751-A24FE02587C2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services.Tests", "test\Core\Seacraft.Services.Tests\Seacraft.Services.Tests.csproj", "{27FCC2F6-FDD5-4C0B-B230-95500E12E61C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructures", "Infrastructures", "{FD32E472-CBC2-4496-9E7C-E5CF3BE91B73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Services.Tests", "test\Seacraft.Services.Tests\Seacraft.Services.Tests.csproj", "{27FCC2F6-FDD5-4C0B-B230-95500E12E61C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{B7B44A21-30C8-4843-9649-EA7E46A5398D}"
 EndProject
@@ -50,17 +42,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E2208C2C-6EA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.Core", "src\Libraries\src\Seacraft.Framework.Core\Seacraft.Framework.Core.csproj", "{A72B859F-ABC4-4C98-9C8D-099AA803BEF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Core", "src\Libraries\src\Seacraft.Core\Seacraft.Core.csproj", "{A72B859F-ABC4-4C98-9C8D-099AA803BEF2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.Core.Tests", "src\Libraries\tests\Seacraft.Framework.Core.Tests\Seacraft.Framework.Core.Tests.csproj", "{3AF2A906-A452-40C9-9F3B-3999F17B2366}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Core.Tests", "src\Libraries\tests\Seacraft.Core.Tests\Seacraft.Core.Tests.csproj", "{3AF2A906-A452-40C9-9F3B-3999F17B2366}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.GitLab.Client", "src\Libraries\src\Seacraft.GitLab.Client\Seacraft.GitLab.Client.csproj", "{C820E0A7-86D2-487A-9316-4C63C5CB7839}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.GitLab.Client.Tests", "src\Libraries\tests\Seacraft.GitLab.Client.Tests\Seacraft.GitLab.Client.Tests.csproj", "{894381DC-974F-4BF0-A2CC-81740470FC90}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Server", "src\Entrypoints\Seacraft.Server\Seacraft.Server.csproj", "{30C64516-616F-4CEE-969B-F6293B6358A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Server", "src\Seacraft.Server\Seacraft.Server.csproj", "{30C64516-616F-4CEE-969B-F6293B6358A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Framework.OAuth", "src\Libraries\src\Seacraft.Framework.OAuth\Seacraft.Framework.OAuth.csproj", "{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.OAuth", "src\Libraries\src\Seacraft.OAuth\Seacraft.OAuth.csproj", "{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Infrastructures", "00_Infrastructures", "{25396D85-2B8F-4044-8652-032EAA2139EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Domains", "01_Domains", "{F0DEA70B-2BC7-4DCB-87D5-9B91F1D5EC9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Infrastructure", "src\Seacraft.Infrastructure\Seacraft.Infrastructure.csproj", "{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,10 +66,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63925ED5-7ECB-4991-ACA3-ACB21B6CE943}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F9DBD197-D48F-4296-B388-B59C87084542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9DBD197-D48F-4296-B388-B59C87084542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9DBD197-D48F-4296-B388-B59C87084542}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,6 +110,10 @@ Global
 		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,15 +121,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{975AB7C6-88FF-4A41-B70A-73DC867AF263} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
 		{11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
-		{5350E579-EDC0-4AC3-B0C8-160C083D42CE} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
-		{EC205F80-DB70-4E32-A4ED-10365023153E} = {4591B0F0-99F2-4081-9D47-7648EDE6CEFB}
-		{63925ED5-7ECB-4991-ACA3-ACB21B6CE943} = {11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}
-		{F9DBD197-D48F-4296-B388-B59C87084542} = {11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}
-		{101E90BE-2133-4497-8029-87A2E091ADAA} = {11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}
+		{F9DBD197-D48F-4296-B388-B59C87084542} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
+		{101E90BE-2133-4497-8029-87A2E091ADAA} = {F0DEA70B-2BC7-4DCB-87D5-9B91F1D5EC9E}
 		{5A16EED8-F5CC-4B9A-9CA0-D22A7EFDF331} = {11D7ADE3-7D67-4EAA-871E-4BB4F0BA6F64}
-		{D7E1F7DD-4B20-47DA-A751-A24FE02587C2} = {5350E579-EDC0-4AC3-B0C8-160C083D42CE}
-		{27FCC2F6-FDD5-4C0B-B230-95500E12E61C} = {EC205F80-DB70-4E32-A4ED-10365023153E}
-		{FD32E472-CBC2-4496-9E7C-E5CF3BE91B73} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
+		{D7E1F7DD-4B20-47DA-A751-A24FE02587C2} = {25396D85-2B8F-4044-8652-032EAA2139EE}
+		{27FCC2F6-FDD5-4C0B-B230-95500E12E61C} = {4591B0F0-99F2-4081-9D47-7648EDE6CEFB}
 		{B7B44A21-30C8-4843-9649-EA7E46A5398D} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
 		{E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E} = {B7B44A21-30C8-4843-9649-EA7E46A5398D}
 		{F96BE0F0-3A0C-49E6-82D9-72DE668DAB83} = {B7B44A21-30C8-4843-9649-EA7E46A5398D}
@@ -141,6 +135,9 @@ Global
 		{894381DC-974F-4BF0-A2CC-81740470FC90} = {F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}
 		{30C64516-616F-4CEE-969B-F6293B6358A9} = {975AB7C6-88FF-4A41-B70A-73DC867AF263}
 		{52D5A13F-D5FF-49C0-B4A7-2E31A599A209} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
+		{25396D85-2B8F-4044-8652-032EAA2139EE} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
+		{F0DEA70B-2BC7-4DCB-87D5-9B91F1D5EC9E} = {CEC09C03-08B8-41F0-95B3-E1811BA90E30}
+		{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD} = {25396D85-2B8F-4044-8652-032EAA2139EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D810A06-6FA0-469A-8941-62F9A9E85DE9}

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace>Seacraft.Services</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Utilities\**" />
+	  <EmbeddedResource Remove="Utilities\**" />
+	  <None Remove="Utilities\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Seacraft.Abstractions\Seacraft.Abstractions.csproj" />
+		<ProjectReference Include="..\Seacraft.Infrastructure\Seacraft.Infrastructure.csproj" />
+		<ProjectReference Include="..\Seacraft.Repositories\Seacraft.Repositories.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Messaging\" />
+	</ItemGroup>
+
+</Project>
