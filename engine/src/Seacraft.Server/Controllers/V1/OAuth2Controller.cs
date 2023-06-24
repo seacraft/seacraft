@@ -9,8 +9,6 @@ using Seacraft.Core.Messaging;
 
 namespace Seacraft.Server.Controllers.V1
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class OAuth2Controller : ApiV1Controller
     {
         private const string GitLabAuth = "https://gitlab.com/oauth/authorize";
