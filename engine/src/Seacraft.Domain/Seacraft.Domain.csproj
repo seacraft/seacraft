@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\src\Seacraft.Domain.Abstractions\Seacraft.Domain.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
