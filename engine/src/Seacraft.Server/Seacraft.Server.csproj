@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Seacraft.Services\Seacraft.Services.csproj" />
   </ItemGroup>
 
 </Project>

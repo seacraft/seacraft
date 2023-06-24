@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\src\Seacraft.Abstractions\Seacraft.Abstractions.csproj" />
+    <ProjectReference Include="..\Libraries\src\Seacraft.Core\Seacraft.Core.csproj" />
+  </ItemGroup>
+
 </Project>
