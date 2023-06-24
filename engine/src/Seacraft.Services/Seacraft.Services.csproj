@@ -15,13 +15,6 @@
 
 	<ItemGroup>
 
-
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Seacraft.Abstractions\Seacraft.Abstractions.csproj" />
-		<ProjectReference Include="..\Seacraft.Infrastructure\Seacraft.Infrastructure.csproj" />
-		<ProjectReference Include="..\Seacraft.Repositories\Seacraft.Repositories.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

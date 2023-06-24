@@ -15,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Seacraft.Domain\Seacraft.Domain.csproj" />
 	  <ProjectReference Include="..\Seacraft.Infrastructure\Seacraft.Infrastructure.csproj" />
 	</ItemGroup>
 
