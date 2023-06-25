@@ -9,14 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Configuration
-    .AddYamlFile("appsettings.yml", optional:true,reloadOnChange:true)
-    .AddYamlFile($"appsettings.{builder.Environment.EnvironmentName}.yml",true);
+    .AddYamlFile("appsettings.yml", optional: true, reloadOnChange: true)
+    .AddYamlFile($"appsettings.{builder.Environment.EnvironmentName}.yml", true);
 
 
 // Add services to the container.
 
 builder.Services.AddOptions().AddHttpContextAccessor().AddHttpClient();
-builder.Services.AddApiRoutingConfiguration().AddControllers(optipns => 
+builder.Services.AddApiRoutingConfiguration().AddControllers(optipns =>
 {
     optipns.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 }).AddNewtonsoftJson();
@@ -30,11 +30,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerConfig();
 }
-
-app.UseSwaggerConfig();
 app.UseIdentityServer();
 
 app.UseAuthorization();
