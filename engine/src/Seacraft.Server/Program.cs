@@ -7,6 +7,12 @@ using Seacraft.Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Configuration
+    .AddYamlFile("appsettings.yml", optional:true,reloadOnChange:true)
+    .AddYamlFile($"appsettings.{builder.Environment.EnvironmentName}.yml",true);
+
+
 // Add services to the container.
 
 builder.Services.AddOptions().AddHttpContextAccessor().AddHttpClient();
