@@ -60,13 +60,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Domains", "01_Domains", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Infrastructure", "src\Seacraft.Infrastructure\Seacraft.Infrastructure.csproj", "{0B3D77E7-EEF6-4977-9BBA-32206CB1DDFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.SnowFlake", "src\Libraries\src\Seacraft.SnowFlake\Seacraft.SnowFlake.csproj", "{A56B28B3-1A37-43C9-A866-DA95F1C0E982}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.SnowFlake", "src\Libraries\src\Seacraft.SnowFlake\Seacraft.SnowFlake.csproj", "{A56B28B3-1A37-43C9-A866-DA95F1C0E982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.SnowFlake.Tests", "src\Libraries\tests\Seacraft.SnowFlake.Tests\Seacraft.SnowFlake.Tests.csproj", "{1D1E3ED0-CD1C-452D-AC26-BDFC554F025E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.SnowFlake.Tests", "src\Libraries\tests\Seacraft.SnowFlake.Tests\Seacraft.SnowFlake.Tests.csproj", "{1D1E3ED0-CD1C-452D-AC26-BDFC554F025E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Domain.Abstractions", "src\Libraries\src\Seacraft.Domain.Abstractions\Seacraft.Domain.Abstractions.csproj", "{E0001CAE-9DBD-491C-9037-41FB393E69FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Domain.Abstractions", "src\Libraries\src\Seacraft.Domain.Abstractions\Seacraft.Domain.Abstractions.csproj", "{E0001CAE-9DBD-491C-9037-41FB393E69FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.Domain", "src\Seacraft.Domain\Seacraft.Domain.csproj", "{D1438F8B-4E76-46F3-BF69-BE262DE35E99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seacraft.Domain", "src\Seacraft.Domain\Seacraft.Domain.csproj", "{D1438F8B-4E76-46F3-BF69-BE262DE35E99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seacraft.IdentityServer4", "src\Libraries\src\Seacraft.IdentityServer4\Seacraft.IdentityServer4.csproj", "{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,6 +140,10 @@ Global
 		{D1438F8B-4E76-46F3-BF69-BE262DE35E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1438F8B-4E76-46F3-BF69-BE262DE35E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1438F8B-4E76-46F3-BF69-BE262DE35E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -166,6 +172,7 @@ Global
 		{1D1E3ED0-CD1C-452D-AC26-BDFC554F025E} = {F96BE0F0-3A0C-49E6-82D9-72DE668DAB83}
 		{E0001CAE-9DBD-491C-9037-41FB393E69FC} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
 		{D1438F8B-4E76-46F3-BF69-BE262DE35E99} = {F0DEA70B-2BC7-4DCB-87D5-9B91F1D5EC9E}
+		{EB368DEE-4FD7-4FB1-80B8-3DCD794E3E80} = {E2208C2C-6EAB-4118-A5D0-7D0EF0DDE79E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D810A06-6FA0-469A-8941-62F9A9E85DE9}
