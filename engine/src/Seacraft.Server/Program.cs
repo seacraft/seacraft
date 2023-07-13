@@ -20,6 +20,10 @@ using System.Reflection.Metadata;
 using Seacraft.Server.Configurations.IdentityServer.Services;
 using Seacraft.Server.Configurations.IdentityServer.Validator;
 using Seacraft.Server.Configurations.IdentityServer.ResponseHandling;
+using Seacraft.Server.Configurations.IdentityServer.Grant;
+using Seacraft.Server.Configurations.MessageStore;
+using Seacraft.Server.Configurations.IdentityServer.Services.Default;
+using Seacraft.Server.Configurations.IdentityServer.OIDCRole;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -101,36 +105,37 @@ services.AddTransient<ITokenValidator, SeacraftTokenValidator>();
 // Introspect 接口支持Superior属性的ApiResource，可以获取所有token的信息
 services.AddTransient<IIntrospectionResponseGenerator, MyIntrospectionResponseGenerator>();
 //// 支持Delegation方式获取Token
-//services.AddTransient<IExtensionGrantValidator, DelegationGrantValidator>();
-//services.AddTransient<IEventSink, LoggingEventSink>();
+services.AddTransient<IExtensionGrantValidator, DelegationGrantValidator>();
+services.AddTransient<IEventSink, LoggingEventSink>();
 //// 使用自定义principle生成器
-//services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, Seacraft.Server.Configurations.IdentityServer.Services.UserClaimsPrincipalFactory<ApplicationUser>>();
-//services.AddTransient<IdentityServerTools>();
+services.AddTransient<IUserClaimsPrincipalFactory<ApplicationUser>, Seacraft.Server.Configurations.IdentityServer.Services.UserClaimsPrincipalFactory<ApplicationUser>>();
+services.AddTransient<IdentityServerTools>();
 //// 配置随机密码生成器
-//services.AddTransient<IPasswordGenerator, DefaultPasswordGenerator>();
+services.AddTransient<IPasswordGenerator, DefaultPasswordGenerator>();
 
 //// 配置LogoutID Store，使用分布式缓存
-//services.AddTransient<IMessageStore<LogoutMessage>, SeacraftLogoutMessageStore>();
+services.AddTransient<IMessageStore<LogoutMessage>, SeacraftLogoutMessageStore>();
 
 //// 配置RBAC鉴权&授权
-//services.authenticationBuilder.AddLocalApi(options =>
-//{
-//    options.ExpectedScope = "synyiiam";
-//});
-//services.AddAuthorization(options =>
-//{
-//    options.AddPolicy(IdentityServerConstants.LocalApi.PolicyName, policy =>
-//    {
-//        policy.AddAuthenticationSchemes(IdentityServerConstants.LocalApi.AuthenticationScheme);
-//        policy.RequireAuthenticatedUser();
-//        //policy.AddRequirements();
-//        policy.RequireRole("iam-admin");
-//    });
-//});
-//services.AddSingleton<IAuthorizationHandler, OIDCRoleHandler>();
+services.AddAuthentication().AddLocalApi(options =>
+{
+    options.ExpectedScope = "Seacraftiam";
+});
+services.AddAuthorization(options =>
+{
+    options.AddPolicy(IdentityServerConstants.LocalApi.PolicyName, policy =>
+    {
+        policy.AddAuthenticationSchemes(IdentityServerConstants.LocalApi.AuthenticationScheme);
+        policy.RequireAuthenticatedUser();
+        //policy.AddRequirements();
+        policy.RequireRole("iam-admin");
+    });
+});
+
+services.AddSingleton<IAuthorizationHandler, OIDCRoleHandler>();
 
 //// TODO: Remove This After .Net Core 6.0
-//services.AddTransient<CookieAuthenticationHandler, MyCookieAuthenticationHandler>();
+services.AddTransient<CookieAuthenticationHandler, MyCookieAuthenticationHandler>();
 
 
 var app = builder.Build();
