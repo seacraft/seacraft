@@ -85,7 +85,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = "sso.cookie";
     // 这样会导致Iframe无法获取Cookie
     // 不过如果是同一个域不会有这个问题
-    // 例如a.synyi.com 和 b.synyi.com 会被视作是same-site
+    // 例如a.Seacreaft.com 和 b.Seacreaft.com 会被视作是same-site
     // TODO: 这里要做成一个配置项
     options.Cookie.SameSite = SameSiteMode.Unspecified;
     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
