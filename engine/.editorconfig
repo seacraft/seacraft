@@ -1,8 +1,0 @@
-﻿root = true
-charset = utf-8
-
-[*.cs]
-
-file_header_template = Copyright(c) 2023 Seacraft. All Rights Reserved.\nThe Seacraft licenses '{fileName}' file under the MIT license.\nSee the 'LICENSE' file in the project repository for more information.
-
-dotnet_diagnostic.CA1054.severity = none
