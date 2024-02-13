@@ -1,3 +1,17 @@
+// Copyright 2024 The seacraft Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http:www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 // Package logger defines gorm logger
 package logger
 
@@ -67,14 +81,14 @@ func New(level int) gormlogger.Interface {
 		Colorful:      false,
 		LogLevel:      gormlogger.LogLevel(level),
 	}
-
+	first, Last, rowsTag, fmsTag := "%s ", " %s", "[rows:%v]", "[%.3fms] "
 	if config.Colorful {
-		infoStr = Green + "%s " + Reset + Green + "[info] " + Reset
-		warnStr = BlueBold + "%s " + Reset + Magenta + "[warn] " + Reset
-		errStr = Magenta + "%s " + Reset + Red + "[error] " + Reset
-		traceStr = Green + "%s " + Reset + Yellow + "[%.3fms] " + BlueBold + "[rows:%v]" + Reset + " %s"
-		traceWarnStr = Green + "%s " + Yellow + "%s " + Reset + RedBold + "[%.3fms] " + Yellow + "[rows:%v]" + Magenta + " %s" + Reset
-		traceErrStr = RedBold + "%s " + MagentaBold + "%s " + Reset + Yellow + "[%.3fms] " + BlueBold + "[rows:%v]" + Reset + " %s"
+		infoStr = Green + first + Reset + Green + "[info] " + Reset
+		warnStr = BlueBold + first + Reset + Magenta + "[warn] " + Reset
+		errStr = Magenta + first + Reset + Red + "[error] " + Reset
+		traceStr = Green + first + Reset + Yellow + fmsTag + BlueBold + rowsTag + Reset + Last
+		traceWarnStr = Green + first + Yellow + first + Reset + RedBold + fmsTag + Yellow + rowsTag + Magenta + Last + Reset
+		traceErrStr = RedBold + first + MagentaBold + first + Reset + Yellow + fmsTag + BlueBold + rowsTag + Reset + Last
 	}
 
 	return &logger{

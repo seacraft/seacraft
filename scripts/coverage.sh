@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copyright 2024 The seacraft Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-blank_issues_enabled: false
-contact_links:
-  - name: 阅读文档
-    url: https://github.com/tindy2013/subconverter/blob/master/README-cn.md
-    about: 建议您发布issue前先仔细阅读项目文档
+
+
+# http://stackoverflow.com/a/21142256/2055281
+
+echo "mode: atomic" > coverage.txt
+
+for d in $(find ./* -maxdepth 10 -type d); do
+    if ls $d/*.go &> /dev/null; then
+        go test  -coverprofile=profile.out -covermode=atomic $d
+        if [ -f profile.out ]; then
+            cat profile.out | grep -v "mode: " >> /tmp/coverage.txt
+            rm profile.out
+        fi
+    fi
+done
+
+echo "coverage output: /tmp/coverage.txt"
