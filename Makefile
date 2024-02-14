@@ -16,12 +16,12 @@
 .DEFAULT_GOAL := all
 
 .PHONY: all
-all: tidy  add-copyright format lint cover
+all: tidy  add-copyright format lint cover build
 
 # ==============================================================================
 # Build options
 
-ROOT_PACKAGE=github.com/seacraft/seacraft
+ROOT_PACKAGE=github.com/seacraft
 VERSION_PACKAGE=github.com/seacraft/component-base/pkg/version
 
 # ==============================================================================
