@@ -29,7 +29,6 @@ install.golines:
 install.mockgen:
 	@$(GO) install github.com/golang/mock/mockgen@latest
 
-
 .PHONY: install.licctl
 install.addlicense:
 	@$(GO) install github.com/seacraft/licctl@latest
@@ -41,7 +40,3 @@ install.goimports:
 .PHONY: install.swagger
 install.swagger:
 	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
-
-.PHONY: install.mockgen
-install.mockgen:
-	@$(GO) install github.com/golang/mock/mockgen@latest
