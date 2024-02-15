@@ -18,6 +18,7 @@ on: [push, pull_request]
 
 env:
   GO_VERSION: '1.21'
+  NAME: seacraft
 
 jobs:
   # Check if there is any dirty change for go mod tidy
@@ -42,8 +43,6 @@ jobs:
   test:
     name: Test with go ${{ env.GO_VERSION }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    environment:
-      name: seacraft
     strategy:
       matrix:
         os: [ubuntu-latest]
