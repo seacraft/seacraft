@@ -22,7 +22,6 @@ on:
     types: [opened, reopened]
 env:
   GO_VERSION: '1.21'
-  os: [ubuntu-latest]
 
 jobs:
   # Check if there is any dirty change for go mod tidy
@@ -46,10 +45,13 @@ jobs:
           git diff --exit-code go.sum
 
   docker:
-    name: Test with go ${{ env.GO_VERSION }} on ${{ env.os }}
-    runs-on: ${{ env.os }}
+    name: Test with go ${{ env.GO_VERSION }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     environment:
       name: seacraft
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     steps:
       - name: Set up Go ${{ env.GO_VERSION }}
         uses: actions/setup-go@v2
