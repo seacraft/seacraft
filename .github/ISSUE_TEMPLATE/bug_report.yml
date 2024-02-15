@@ -12,85 +12,69 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Bug 反馈
-description: 功能运行不正常 / 失效
-title: "[BUG] <title>"
+name: Report a bug 🐛
+description: Create a report to help us improve
+labels: "bug"
 body:
   - type: markdown
     attributes:
       value: |
-         遇到问题请先尝试使用[Action](https://github.com/tindy2013/subconverter/actions)中的最新版本
-         如果是使用公共转换服务中遇到的问题，请先联系服务的提供者。
-  - type: checkboxes
-    id: version-check
+        ## Self-help
+        Thank you for considering to open a bug report!
+        
+        Before you do, however, make sure to check our existing resources to see if it has already been discussed/reported:
+        - [Reported bugs](https://github.com/seacraft/seacraft/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Abug)
+        - [GitHub Discussions](https://github.com/seacraft/seacraft/discussions)
+  - type: textarea
     attributes:
-      label: 确认版本最新
-      description: 对于您遇到的BUG，是否尝试在最新Action编译的版本中复现？
-      options:
-      - label: 我已经确认在最新Action编译的版本中复现
-        required: true
-  - type: checkboxes
-    id: issue-check
+      label: Report
+      description: "What bug have you encountered?"
+      placeholder: "A clear and concise description of what the bug is."
+  - type: textarea
     attributes:
-      label: 检索issue
-      description: 对于您遇到的BUG，是否已经确认之前没有其他issue涉及？
-      options:
-      - label: 我已经确认之前没有issue涉及此BUG
-        required: true
-  - type: input
-    id: subconverter-version
-    attributes:
-      label: subconverter版本
-      description: subconverter版本
-      placeholder: 请输入详细的版本号
-    validations:
-      required: true
-  - type: input
-    id: convert
-    attributes:
-      label: 转换过程
-      description: BUG发生在什么配置转换为什么配置的过程中？
-      placeholder: 请输入“xxx转换为xxx配置”
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: What did you expect to happen?
     validations:
       required: true
   - type: textarea
-    id: config
     attributes:
-      label: 转换设置
-      description: 转换时使用的subconverter配置文件或外部配置链接
-      placeholder: 请输入
+      label: Actual Behavior
+      description: Also tell us, what did you see is happen?
+      placeholder: Tell us what you see that is happening
     validations:
       required: true
   - type: textarea
-    id: description
     attributes:
-      label: 复现步骤
-      description: BUG的详细复现步骤
-      placeholder: 请输入
+      label: Steps to Reproduce the Problem
+      description: "How can we reproduce this bug? Please walk us through it step by step."
+      value: |
+        1.
+        2.
+        3.
     validations:
       required: true
   - type: textarea
-    id: expected
     attributes:
-      label: 期望结果
-      description: 您期望的结果是？
-      placeholder: 请输入
-    validations:
-      required: true
-  - type: textarea
-    id: actual
-    attributes:
-      label: 实际结果
-      description: 实际得到的结果是？
-      placeholder: 请输入
-    validations:
-      required: true
-  - type: textarea
-    id: logs
-    attributes:
-      label: 错误信息
-      description: subconverter转换时的日志/信息输出
-      render: shell
-      placeholder: 请输入
+      label: Logs from seacraft operator
+      description: "Provide logs from seacraft operator, if need be."
+      value: |
+        ```
+        example
+        ```
     validations:
       required: false
+  - type: dropdown
+    attributes:
+      label: seacraft Version
+      description: What version of seacraft that are you running?
+      options:
+        - "1.0.0"
+        - "Other"
+    validations:
+      required: false
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else?
+      description: "Let us know if you have anything else to share"
