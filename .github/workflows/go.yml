@@ -41,21 +41,13 @@ jobs:
           git diff --exit-code go.sum
 
   check:
-    name: Check with go ${{ matrix.go_version }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    environment:
-      name: seacraft
-    strategy:
-      matrix:
-        go_version: [1.21]
-        os: [ubuntu-latest]
+    name: Check lint and build
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up Go ${{ matrix.go_version }}
+      - name: Set Go
         uses: actions/setup-go@v2
         with:
-          go-version: ${{ matrix.go_version }}
-        id: go
-
+          go-version: ${{ env.GO_VERSION }}
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
 
