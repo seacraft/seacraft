@@ -46,7 +46,7 @@ jobs:
       name: seacraft
     strategy:
       matrix:
-        go_version: [${{ env.GO_VERSION }}]
+        go_version: [1.21]
         os: [ubuntu-latest]
     steps:
       - name: Set up Go ${{ env.GO_VERSION }}
