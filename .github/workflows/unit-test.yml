@@ -18,7 +18,7 @@ on: [push, pull_request]
 
 env:
   GO_VERSION: '1.21'
-  os: [ubuntu-latest]
+  OS: [ubuntu-latest]
 
 jobs:
   # Check if there is any dirty change for go mod tidy
@@ -41,8 +41,8 @@ jobs:
           git diff --exit-code go.mod
           git diff --exit-code go.sum
   test:
-    name: Test with go ${{ env.GO_VERSION }} on ${{ env.os }}
-    runs-on: ${{ env.os }}
+    name: Test with go ${{ env.GO_VERSION }} on ${{ env.OS }}
+    runs-on: ${{ env.OS }}
     environment:
       name: seacraft
     steps:
