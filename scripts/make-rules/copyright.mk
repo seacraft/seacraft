@@ -19,8 +19,8 @@
 .PHONY: copyright.verify
 copyright.verify: tools.verify.licctl
 	@echo "===========> Verifying the boilerplate headers for all files"
-	@licctl --check -f $(ROOT_DIR)/scripts/boilerplate.txt $(ROOT_DIR) --skip-dirs=third_party,vendor,_output
+	@licctl --check -f $(ROOT_DIR)/scripts/boilerplate.txt $(ROOT_DIR) --skip-dirs=third_party,vendor,_output,ui
 
 .PHONY: copyright.add
 copyright.add: tools.verify.licctl
-	@licctl -v -f $(ROOT_DIR)/scripts/boilerplate.txt $(ROOT_DIR) --skip-dirs=third_party,vendor,_output
+	@licctl -v -f $(ROOT_DIR)/scripts/boilerplate.txt $(ROOT_DIR) --skip-dirs=third_party,vendor,_output,ui
