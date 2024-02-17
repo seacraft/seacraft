@@ -18,8 +18,18 @@
 
 UI ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/ui/))
 
-.PHONY: ng.build.%
-ng.build.%:
-	$(eval UI := $(word 2,$(subst ., ,$*)))
-	$(eval PLATFORM := $(word 1,$(subst ., ,$*)))
-	@echo "===========> Building binary $(UI) $(PLATFORM)"
+
+.PHONY: ng.build
+ng.build:
+	$(eval NODE_MODULES := $(UI)node_modules)
+	@echo "===========> Building binary ui"
+	@cd $(UI); \
+	if [ ! -d $(NODE_MODULES) ]; then \
+		npm install; \
+	fi; \
+	npm run build
+
+.PHONY: ng.clean
+ng.clean:
+	@echo "===========> Cleaning ui build output"
+	@-rm -vrf $(OUTPUT_DIR)/ui

@@ -62,13 +62,13 @@ export USAGE_OPTIONS
 # ==============================================================================
 # Targets
 
-
-## build: Build source code for host platform.
+## build: Build all source code for host platform.
 .PHONY: build
 build:
 	@$(MAKE) go.build
+	@$(MAKE) build.ui
 
-## build: Build source code for host platform.
+## build.ui: Build ui source code for host platform.
 .PHONY: build.ui
 build.ui:
 	@$(MAKE) ng.build
