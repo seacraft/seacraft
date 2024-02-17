@@ -30,6 +30,7 @@ VERSION_PACKAGE=github.com/seacraft/component-base/pkg/version
 include scripts/make-rules/common.mk
 include scripts/make-rules/swagger.mk
 include scripts/make-rules/golang.mk
+include scripts/make-rules/angular.mk
 include scripts/make-rules/image.mk
 include scripts/make-rules/copyright.mk
 include scripts/make-rules/tools.mk
@@ -66,6 +67,11 @@ export USAGE_OPTIONS
 .PHONY: build
 build:
 	@$(MAKE) go.build
+
+## build: Build source code for host platform.
+.PHONY: build.ui
+build.ui:
+	@$(MAKE) ng.build
 
 ## build.multiarch: Build source code for multiple platforms. See option PLATFORMS.
 .PHONY: build.multiarch
