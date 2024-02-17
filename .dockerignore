@@ -1,0 +1,9 @@
+
+ui/node_modules
+
+ui/.history
+ui/.angular
+
+doc/
+docs/
+.git
