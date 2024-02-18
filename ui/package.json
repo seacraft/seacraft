@@ -5,10 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-path='../_output/ui'",
+    "build": "ng build  --configuration development --output-path='../_output/ui/dist'",
+    "release": "ng build  --configuration production --output-path='../_output/ui/dist'",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:seacraft-ui": "node ../_output/ui/server/server.mjs"
+    "serve:ssr:seacraft-ui": "node ../_output/ui/dist/server/server.mjs"
   },
   "private": true,
   "dependencies": {

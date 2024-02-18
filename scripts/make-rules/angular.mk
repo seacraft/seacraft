@@ -22,12 +22,18 @@ UI ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/ui/))
 .PHONY: ng.build
 ng.build:
 	$(eval NODE_MODULES := $(UI)node_modules)
+	$(eval NGINX := $(UI)nginx)
 	@echo "===========> Building binary ui"
 	@cd $(UI); \
 	if [ ! -d $(NODE_MODULES) ]; then \
 		npm install; \
 	fi; \
-	npm run build
+	if [ -z $(env) ]; then \
+	  	npm run build; \
+	else \
+	  	npm run $(env); \
+	fi; \
+	cp -r $(NGINX) $(OUTPUT_DIR)/ui
 
 .PHONY: ng.clean
 ng.clean:
