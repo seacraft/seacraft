@@ -64,7 +64,7 @@ image.build: image.verify go.build.verify $(addprefix image.build., $(addprefix 
 image.build.multiarch: image.verify go.build.verify $(foreach p,$(PLATFORMS),$(addprefix image.build., $(addprefix $(p)., $(IMAGES))))
 
 .PHONY: image.build.%
-image.build.%: go.build.%
+image.build.%: go.build.% ng.build
 	$(eval IMAGE := $(COMMAND))
 	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
 	$(eval BUILD_FILE := $(ROOT_DIR)/build/docker/$(IMAGE)/build.sh)
@@ -74,6 +74,10 @@ image.build.%: go.build.%
 		| sed "s#BASE_IMAGE#$(BASE_IMAGE)#g" >$(TMP_DIR)/$(IMAGE)/Dockerfile
 	@if [ -e $(OUTPUT_DIR)/platforms/$(IMAGE_PLAT)/$(IMAGE) ]; then \
 		cp $(OUTPUT_DIR)/platforms/$(IMAGE_PLAT)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
+	else \
+	  	if [ -e $(OUTPUT_DIR)/$(IMAGE) ]; then \
+      		cp $(OUTPUT_DIR)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
+      	fi; \
 	fi
 	@if [ -e $(BUILD_FILE) ]; then \
 		bash $(ROOT_DIR)/build/docker/$(IMAGE)/build.sh $(TMP_DIR)/$(IMAGE); \
