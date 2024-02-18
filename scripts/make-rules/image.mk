@@ -34,9 +34,14 @@ _DOCKER_BUILD_EXTRA_ARGS += $(EXTRA_ARGS)
 endif
 
 IMAGES_DIR ?= $(wildcard ${ROOT_DIR}/build/docker/*)
-IMAGES ?= $(filter-out tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+IMAGES ?= $(filter-out ui tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+IMAGES_UI ?=$(filter ui,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+
 ifeq (${IMAGES},)
   $(error Could not determine IMAGES, set ROOT_DIR or run in source dir)
+endif
+ifeq (${IMAGES_UI},)
+  $(error Could not determine IMAGES_UI, set ROOT_DIR or run in source dir)
 endif
 
 .PHONY: image.verify
@@ -58,13 +63,17 @@ image.daemon.verify:
 	fi
 
 .PHONY: image.build
-image.build: image.verify go.build.verify $(addprefix image.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
+image.build: image.verify go.build.verify
+	$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
+	$(addprefix $(MAKE) image.ui.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.build.multiarch
-image.build.multiarch: image.verify go.build.verify $(foreach p,$(PLATFORMS),$(addprefix image.build., $(addprefix $(p)., $(IMAGES))))
+image.build.multiarch: image.verify go.build.verify
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.ui.build., $(addprefix $(p)., $(IMAGES_UI))))
 
-.PHONY: image.build.%
-image.build.%: go.build.% ng.build
+.PHONY: image.go.build.%
+image.go.build.%: go.build.%
 	$(eval IMAGE := $(COMMAND))
 	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
 	$(eval BUILD_FILE := $(ROOT_DIR)/build/docker/$(IMAGE)/build.sh)
@@ -74,10 +83,6 @@ image.build.%: go.build.% ng.build
 		| sed "s#BASE_IMAGE#$(BASE_IMAGE)#g" >$(TMP_DIR)/$(IMAGE)/Dockerfile
 	@if [ -e $(OUTPUT_DIR)/platforms/$(IMAGE_PLAT)/$(IMAGE) ]; then \
 		cp $(OUTPUT_DIR)/platforms/$(IMAGE_PLAT)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
-	else \
-	  	if [ -e $(OUTPUT_DIR)/$(IMAGE) ]; then \
-      		cp $(OUTPUT_DIR)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
-      	fi; \
 	fi
 	@if [ -e $(BUILD_FILE) ]; then \
 		bash $(ROOT_DIR)/build/docker/$(IMAGE)/build.sh $(TMP_DIR)/$(IMAGE); \
@@ -86,21 +91,34 @@ image.build.%: go.build.% ng.build
 	$(eval GOARCH := $(shell $(GO) env GOARCH))
 	$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX)
 	@rm -rf $(TMP_DIR)/$(IMAGE)
-#	ifeq ( "$(GOARCH)","$(GOARCH)"); \
-#        @echo  "=="; \
-#		$(MAKE) image.daemon.verify; \
-#		$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX); \
-#	else \
-#	    @echo  "!="; \
-#		$(DOCKER) build $(BUILD_SUFFIX); \
-#	endif \
+
+.PHONY: image.ui.build.%
+image.ui.build.%: ng.build
+	$(eval IMAGE := $(word 2,$(subst ., ,$*)))
+	$(eval PLATFORM := $(word 1,$(subst ., ,$*)))
+	$(eval OS := $(word 1,$(subst _, ,$(PLATFORM))))
+	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
+	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
+	@echo "===========> Building docker image $(IMAGE) $(VERSION) for $(IMAGE_PLAT)"
+	@mkdir -p $(TMP_DIR)/$(IMAGE)
+	@cat $(ROOT_DIR)/build/docker/$(IMAGE)/Dockerfile\
+		| sed "s#BASE_IMAGE#$(BASE_IMAGE)#g" >$(TMP_DIR)/$(IMAGE)/Dockerfile
+	@if [ -e $(OUTPUT_DIR)/$(IMAGE) ]; then \
+		cp -r $(OUTPUT_DIR)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
+	fi
+	$(eval BUILD_SUFFIX := $(_DOCKER_BUILD_EXTRA_ARGS) --pull -t $(REGISTRY_PREFIX)/$(IMAGE)-$(ARCH):$(VERSION) $(TMP_DIR)/$(IMAGE))
+	$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX)
 	@rm -rf $(TMP_DIR)/$(IMAGE)
 
 .PHONY: image.push
-image.push: image.verify go.build.verify $(addprefix image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
+image.push: image.verify go.build.verify
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.push.multiarch
-image.push.multiarch: image.verify go.build.verify $(foreach p,$(PLATFORMS),$(addprefix image.push., $(addprefix $(p)., $(IMAGES))))
+image.push.multiarch: image.verify go.build.verify
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_UI))))
 
 .PHONY: image.push.%
 image.push.%: image.build.%
