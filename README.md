@@ -1,3 +1,3 @@
 # Seacraft
 
-An opensource DevOps platform.
+An cloud native packaging platform.
