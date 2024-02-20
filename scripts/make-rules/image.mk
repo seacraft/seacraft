@@ -111,7 +111,7 @@ image.ui.build.%: ng.build image.gen.args.%
 .PHONY: image.push
 image.push: image.verify go.build.verify image.build
 	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
-	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.push.multiarch
 image.push.multiarch: image.verify go.build.verify image.build
