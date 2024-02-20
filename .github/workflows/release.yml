@@ -53,7 +53,7 @@ jobs:
     name: Test with go ${{ matrix.go_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     environment:
-      name: production
+      name: ${{ env.BUILD_RUNTIME }}
     strategy:
       matrix:
         go_version: [1.21]
