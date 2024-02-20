@@ -34,10 +34,11 @@ _DOCKER_BUILD_EXTRA_ARGS += $(EXTRA_ARGS)
 endif
 
 IMAGES_DIR ?= $(wildcard ${ROOT_DIR}/build/docker/*)
-IMAGES ?= $(filter-out ui tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+IMAGES_ALL ?= $(filter-out ui ,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+IMAGES_GO ?= $(filter-out ui tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 IMAGES_UI ?=$(filter ui,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 
-ifeq (${IMAGES},)
+ifeq (${IMAGES_GO},)
   $(error Could not determine IMAGES, set ROOT_DIR or run in source dir)
 endif
 ifeq (${IMAGES_UI},)
@@ -64,18 +65,16 @@ image.daemon.verify:
 
 .PHONY: image.build
 image.build: image.verify go.build.verify
-	$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
-	$(addprefix $(MAKE) image.ui.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
+	$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
+	#$(addprefix $(MAKE) image.ui.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.build.multiarch
 image.build.multiarch: image.verify go.build.verify
-	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES_GO))))
 	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.ui.build., $(addprefix $(p)., $(IMAGES_UI))))
 
 .PHONY: image.go.build.%
-image.go.build.%: go.build.%
-	$(eval IMAGE := $(COMMAND))
-	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
+image.go.build.%: go.build.% image.gen.args.%
 	$(eval BUILD_FILE := $(ROOT_DIR)/build/docker/$(IMAGE)/build.sh)
 	@echo "===========> Building docker image $(IMAGE) $(VERSION) for $(IMAGE_PLAT)"
 	@mkdir -p $(TMP_DIR)/$(IMAGE)
@@ -93,12 +92,7 @@ image.go.build.%: go.build.%
 	@rm -rf $(TMP_DIR)/$(IMAGE)
 
 .PHONY: image.ui.build.%
-image.ui.build.%: ng.build
-	$(eval IMAGE := $(word 2,$(subst ., ,$*)))
-	$(eval PLATFORM := $(word 1,$(subst ., ,$*)))
-	$(eval OS := $(word 1,$(subst _, ,$(PLATFORM))))
-	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
-	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
+image.ui.build.%: ng.build image.gen.args.%
 	@echo "===========> Building docker image $(IMAGE) $(VERSION) for $(IMAGE_PLAT)"
 	@mkdir -p $(TMP_DIR)/$(IMAGE)
 	@cat $(ROOT_DIR)/build/docker/$(IMAGE)/Dockerfile\
@@ -111,16 +105,22 @@ image.ui.build.%: ng.build
 	@rm -rf $(TMP_DIR)/$(IMAGE)
 
 .PHONY: image.push
-image.push: image.verify go.build.verify
-	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES)))
-	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
+image.push: image.verify go.build.verify image.build
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_ALL)))
 
 .PHONY: image.push.multiarch
-image.push.multiarch: image.verify go.build.verify
-	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES))))
-	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_UI))))
+image.push.multiarch: image.verify go.build.verify image.build
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_ALL))))
 
 .PHONY: image.push.%
-image.push.%: image.build.%
+image.push.%: image.gen.args.%
+	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
 	@echo "===========> Pushing image $(IMAGE) $(VERSION) to $(REGISTRY_PREFIX)"
 	$(DOCKER) push $(REGISTRY_PREFIX)/$(IMAGE)-$(ARCH):$(VERSION)
+
+.PHONY: image.gen.args.%
+image.gen.args.%:
+	$(eval IMAGE := $(word 2,$(subst ., ,$*)))
+	$(eval PLATFORM := $(word 1,$(subst ., ,$*)))
+	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
+	$(eval IMAGE_PLAT := $(subst _,/,$(PLATFORM)))
