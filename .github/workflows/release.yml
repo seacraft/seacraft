@@ -27,7 +27,7 @@ on:
     types: [opened, reopened]
 env:
   GO_VERSION: '1.21'
-
+  DOCKER_REGISTRY: ghcr.io/seacraft
 jobs:
   # Check if there is any dirty change for go mod tidy
   go-mod:
@@ -53,8 +53,7 @@ jobs:
     name: Test with go ${{ matrix.go_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     environment:
-      NAME: seacraft
-      REGISTRY: ghcr.io
+      name: seacraft
     strategy:
       matrix:
         go_version: [1.21]
@@ -105,4 +104,4 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           [ "$VERSION" == "main" ] && VERSION=latest
-          make push REGISTRY_PREFIX=$REGISTRY/seacraft VERSION=$VERSION
+          make push REGISTRY_PREFIX={{ env.DOCKER_REGISTRY }} VERSION=$VERSION
