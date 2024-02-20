@@ -65,12 +65,12 @@ image.daemon.verify:
 
 .PHONY: image.build
 image.build: image.verify go.build.verify
-	$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
+	#$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
 	$(addprefix $(MAKE) image.ui.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.build.multiarch
 image.build.multiarch: image.verify go.build.verify
-	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES_GO))))
+#	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES_GO))))
 	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.ui.build., $(addprefix $(p)., $(IMAGES_UI))))
 
 .PHONY: image.go.build.%
@@ -98,7 +98,7 @@ image.go.build.%: go.build.% image.gen.args.%
 
 .PHONY: image.ui.build.%
 image.ui.build.%: ng.build image.gen.args.%
-	@echo "===========> Building docker image $(IMAGE) $(VERSION)"
+	@echo "===========> Building docker image $(IMAGE) $(VERSION) for $(IMAGE_PLAT)"
 	@mkdir -p $(TMP_DIR)/$(IMAGE)
 	@cat $(ROOT_DIR)/build/docker/$(IMAGE)/Dockerfile\
 		| sed "s#BASE_IMAGE#$(BASE_IMAGE)#g" >$(TMP_DIR)/$(IMAGE)/Dockerfile
@@ -111,7 +111,7 @@ image.ui.build.%: ng.build image.gen.args.%
 
 .PHONY: image.push
 image.push: image.verify go.build.verify image.build
-	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_ALL)))
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.push.multiarch
 image.push.multiarch: image.verify go.build.verify image.build
@@ -119,7 +119,6 @@ image.push.multiarch: image.verify go.build.verify image.build
 
 .PHONY: image.push.%
 image.push.%: image.gen.args.%
-	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
 	@echo "===========> Pushing image $(IMAGE) $(VERSION) to $(REGISTRY_PREFIX)"
 	$(DOCKER) push $(REGISTRY_PREFIX)/$(IMAGE)-$(ARCH):$(VERSION)
 

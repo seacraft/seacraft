@@ -28,6 +28,7 @@ on:
 env:
   GO_VERSION: '1.21'
   DOCKER_REGISTRY: ghcr.io/seacraft
+  BUILD_RUNTIME: release
 jobs:
   # Check if there is any dirty change for go mod tidy
   go-mod:
@@ -104,4 +105,4 @@ jobs:
           export VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           [ "$VERSION" == "main" ] && VERSION=latest
-          make push REGISTRY_PREFIX=${{ env.DOCKER_REGISTRY }}
+          make push REGISTRY_PREFIX=${{ env.DOCKER_REGISTRY }} BUILD_RUNTIME=${{ env.BUILD_RUNTIME }}
