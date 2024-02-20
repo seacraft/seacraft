@@ -65,12 +65,12 @@ image.daemon.verify:
 
 .PHONY: image.build
 image.build: image.verify go.build.verify
-	#$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
+	$(addprefix $(MAKE) image.go.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
 	$(addprefix $(MAKE) image.ui.build., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.build.multiarch
 image.build.multiarch: image.verify go.build.verify
-#	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES_GO))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.go.build., $(addprefix $(p)., $(IMAGES_GO))))
 	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.ui.build., $(addprefix $(p)., $(IMAGES_UI))))
 
 .PHONY: image.go.build.%
