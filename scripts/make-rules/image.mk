@@ -34,7 +34,7 @@ _DOCKER_BUILD_EXTRA_ARGS += $(EXTRA_ARGS)
 endif
 
 IMAGES_DIR ?= $(wildcard ${ROOT_DIR}/build/docker/*)
-IMAGES_ALL ?= $(filter-out ui ,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
+IMAGES_ALL ?= $(filter-out tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 IMAGES_GO ?= $(filter-out ui tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 IMAGES_UI ?=$(filter ui,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 
@@ -88,12 +88,17 @@ image.go.build.%: go.build.% image.gen.args.%
 	fi
 	$(eval BUILD_SUFFIX := $(_DOCKER_BUILD_EXTRA_ARGS) --pull -t $(REGISTRY_PREFIX)/$(IMAGE)-$(ARCH):$(VERSION) $(TMP_DIR)/$(IMAGE))
 	$(eval GOARCH := $(shell $(GO) env GOARCH))
-	$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX)
+	@if [ $(shell $(GO) env GOARCH) != $(ARCH) ] ; then \
+		$(MAKE) image.daemon.verify ;\
+		$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX) ; \
+	else \
+		$(DOCKER) build $(BUILD_SUFFIX) ; \
+	fi
 	@rm -rf $(TMP_DIR)/$(IMAGE)
 
 .PHONY: image.ui.build.%
 image.ui.build.%: ng.build image.gen.args.%
-	@echo "===========> Building docker image $(IMAGE) $(VERSION) for $(IMAGE_PLAT)"
+	@echo "===========> Building docker image $(IMAGE) $(VERSION)"
 	@mkdir -p $(TMP_DIR)/$(IMAGE)
 	@cat $(ROOT_DIR)/build/docker/$(IMAGE)/Dockerfile\
 		| sed "s#BASE_IMAGE#$(BASE_IMAGE)#g" >$(TMP_DIR)/$(IMAGE)/Dockerfile
@@ -101,7 +106,7 @@ image.ui.build.%: ng.build image.gen.args.%
 		cp -r $(OUTPUT_DIR)/$(IMAGE) $(TMP_DIR)/$(IMAGE)/; \
 	fi
 	$(eval BUILD_SUFFIX := $(_DOCKER_BUILD_EXTRA_ARGS) --pull -t $(REGISTRY_PREFIX)/$(IMAGE)-$(ARCH):$(VERSION) $(TMP_DIR)/$(IMAGE))
-	$(DOCKER) build --platform $(IMAGE_PLAT) $(BUILD_SUFFIX)
+	$(DOCKER) build  $(BUILD_SUFFIX)
 	@rm -rf $(TMP_DIR)/$(IMAGE)
 
 .PHONY: image.push
