@@ -18,7 +18,6 @@
 
 UI ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/ui/))
 
-
 .PHONY: ng.build
 ng.build:
 	$(eval NODE_MODULES := $(UI)node_modules)
@@ -28,10 +27,10 @@ ng.build:
 	if [ ! -d $(NODE_MODULES) ]; then \
 		npm install; \
 	fi; \
-	if [ -z $(env) ]; then \
+	if [ -z $(BUILD_RUNTIME) ]; then \
 	  	npm run build; \
 	else \
-	  	npm run $(env); \
+	  	npm run $(BUILD_RUNTIME); \
 	fi; \
 	cp -r $(NGINX) $(OUTPUT_DIR)/ui
 
