@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Release
+name: E2E Test
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
     name: Test with go ${{ matrix.go_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     environment:
-      name: test
+      name: e2e-test
     strategy:
       matrix:
         go_version: [1.21]
