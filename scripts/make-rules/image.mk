@@ -34,7 +34,6 @@ _DOCKER_BUILD_EXTRA_ARGS += $(EXTRA_ARGS)
 endif
 
 IMAGES_DIR ?= $(wildcard ${ROOT_DIR}/build/docker/*)
-IMAGES_ALL ?= $(filter-out tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 IMAGES_GO ?= $(filter-out ui tools,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 IMAGES_UI ?=$(filter ui,$(foreach image,${IMAGES_DIR},$(notdir ${image})))
 
@@ -111,11 +110,13 @@ image.ui.build.%: ng.build image.gen.args.%
 
 .PHONY: image.push
 image.push: image.verify go.build.verify image.build
+	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_GO)))
 	$(addprefix $(MAKE) image.push., $(addprefix $(IMAGE_PLAT)., $(IMAGES_UI)))
 
 .PHONY: image.push.multiarch
 image.push.multiarch: image.verify go.build.verify image.build
-	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_ALL))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_GO))))
+	$(foreach p,$(PLATFORMS),$(addprefix $(MAKE) image.push., $(addprefix $(p)., $(IMAGES_UI))))
 
 .PHONY: image.push.%
 image.push.%: image.gen.args.%
