@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/seacraft-ui",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -27,17 +27,17 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.less"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -56,21 +56,28 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options":{
+            "browserTarget": "seacraft-ui:build",
+            "proxyConfig": "proxy.conf.json"
+          },          
           "configurations": {
             "production": {
-              "buildTarget": "seacraft-ui:build:production"
+              "browserTarget": "seacraft-ui:build:production"
             },
             "development": {
-              "buildTarget": "seacraft-ui:build:development"
+              "browserTarget": "seacraft-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "seacraft-ui:build"
+            "browserTarget": "seacraft-ui:build"
           }
         },
         "test": {
@@ -104,6 +111,6 @@
     }
   },
   "cli": {
-    "analytics": "b60298d3-dbab-4a98-8b99-2d2f1bd18ca7"
+    "analytics": "ccf59b8f-3cd5-46f1-b067-9ecc374d0e64"
   }
 }

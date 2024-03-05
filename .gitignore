@@ -27,7 +27,7 @@ ui/*.launch
 ui/.settings/
 ui/*.sublime-workspace
 
-ui/.angular/cache
+ui/.angular/
 ui/.sass-cache/
 ui/connect.lock
 ui/coverage
