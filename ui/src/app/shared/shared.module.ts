@@ -108,6 +108,8 @@ import { RouterTestingModule } from '@angular/router/testing';
     PageNotFoundComponent,
   ],
   exports: [
+    TranslateModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NzDatePickerModule,

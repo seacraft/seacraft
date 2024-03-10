@@ -8,7 +8,7 @@ import { SignInGuard } from "src/app/shared/router-guard/sign-in-guard-activate.
 const routes: Routes = [
     {
         path: 'sign-in',
-        canActivate: [SignInGuard],
+        // canActivate: [SignInGuard],
         component: SignInComponent,
     },
 ];
