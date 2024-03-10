@@ -13,6 +13,6 @@ export class SignInComponent implements OnInit {
     this.containerClass.push('sign-up-mode');
   }
   public toSignIn() {
-    this.containerClass.filter((item) => item !== 'sign-up-mode');
+    this.containerClass = [...this.containerClass.filter((item) => item !== 'sign-up-mode')]
   }
 }
