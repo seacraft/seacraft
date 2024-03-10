@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'seacraft-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  isCollapsed = false;
+
+  constructor() {
+  }
+  ngOnInit () {}
 }

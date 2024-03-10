@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { SeacraftRoutingModule } from './seacraft-routing.module';
@@ -19,8 +19,17 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { SeacraftTranslateLoaderService } from './services/seacraft-translate-loader.service';
 
 registerLocaleData(en);
+
+class MyMissingTranslationHandler implements MissingTranslationHandler {
+  handle(params: MissingTranslationHandlerParams) {
+      const missingText: string = '{Seacraft}';
+      return params.key || missingText;
+  }
+}
+
 
 @NgModule({
   declarations: [
@@ -30,7 +39,7 @@ registerLocaleData(en);
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
-          useClass: HarborTranslateLoaderService,
+          useClass: SeacraftTranslateLoaderService,
       },
       missingTranslationHandler: {
           provide: MissingTranslationHandler,
@@ -46,6 +55,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzMenuModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
   ],
