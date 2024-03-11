@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package db provide useful functions to create postgresql instance. and Common functions with ORM
-package db // import "github.com/seacraft/pkg/db"
+// Package gorm provide Common functions with ORM
+package gorm

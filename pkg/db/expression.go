@@ -12,5 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package db provide useful functions to create postgresql instance. and Common functions with ORM
-package db // import "github.com/seacraft/pkg/db"
+package db
+
+type KeyValuePair struct {
+	Key   any
+	Value any
+}
+
+func NewPair(Key any, value any) *KeyValuePair {
+	return &KeyValuePair{
+		Key:   Key,
+		Value: value,
+	}
+}
+
+type Expression struct {
+	List []*KeyValuePair
+}
+
+func NewExpression() *Expression {
+	return &Expression{
+		List: []*KeyValuePair{},
+	}
+}
+func (e *Expression) And(query any, args ...any) {
+	e.List = append(e.List, NewPair(query, args))
+}
