@@ -45,8 +45,8 @@ func (r *PagedListResult) SetTotal(total int64) {
 
 type PagedListRequest struct {
 	PageIndex int `json:"page_index" form:"page_index"`
-	PageSize  int `json:"page_size" form:"page_size"`
-	Skip      int `json:"skip" form:"skip"`
+	PageSize  int `json:"page_size"  form:"page_size"`
+	Skip      int `json:"skip"       form:"skip"`
 }
 
 func (r *PagedListRequest) InitPage() {
@@ -57,5 +57,4 @@ func (r *PagedListRequest) InitPage() {
 		r.PageIndex = defaultPageindex
 	}
 	r.Skip = (r.PageIndex - 1) * r.PageSize
-
 }

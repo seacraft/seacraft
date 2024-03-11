@@ -24,10 +24,11 @@ import (
 
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
-	"github.com/seacraft/component-base/pkg/core"
-	"github.com/seacraft/component-base/pkg/version"
 	ginprometheus "github.com/zsais/go-gin-prometheus"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/seacraft/component-base/pkg/core"
+	"github.com/seacraft/component-base/pkg/version"
 
 	"github.com/seacraft/internal/pkg/middleware"
 	"github.com/seacraft/pkg/log"

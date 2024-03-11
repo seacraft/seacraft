@@ -16,6 +16,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+
 	"github.com/seacraft/pkg/log"
 )
 

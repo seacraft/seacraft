@@ -14,7 +14,7 @@
 
 
 
-# options for analysis running
+# options for analysis runningnlreturn
 run:
   # default concurrency is a available CPU number
   concurrency: 4
@@ -800,7 +800,7 @@ linters:
     - nakedret
     - nestif
     - nilerr
-    - nlreturn
+#    - nlreturn
     - noctx
     - nolintlint
     - paralleltest

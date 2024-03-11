@@ -16,10 +16,12 @@ package gorm
 
 import (
 	"fmt"
+
 	"github.com/google/uuid"
+	"gorm.io/gorm"
+
 	"github.com/seacraft/errors"
 	"github.com/seacraft/pkg/db"
-	"gorm.io/gorm"
 )
 
 type DbContextTx struct {
@@ -29,6 +31,7 @@ type DbContextTx struct {
 
 func newDbContextTx(db *gorm.DB) *DbContextTx {
 	id, _ := uuid.NewUUID()
+
 	return &DbContextTx{
 		db:            db,
 		TransactionId: id.String(),
@@ -38,6 +41,7 @@ func newDbContextTx(db *gorm.DB) *DbContextTx {
 func (d *DbContextTx) DbContext() any {
 	return d.db
 }
+
 func (d *DbContextTx) Commit() error {
 	return d.db.Commit().Error
 }

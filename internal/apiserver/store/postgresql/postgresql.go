@@ -18,12 +18,13 @@ import (
 	"fmt"
 	"sync"
 
+	"gorm.io/gorm"
+
 	"github.com/seacraft/errors"
 	"github.com/seacraft/internal/apiserver/store"
 	"github.com/seacraft/internal/pkg/logger"
 	genericoptions "github.com/seacraft/internal/pkg/options"
 	"github.com/seacraft/pkg/db"
-	"gorm.io/gorm"
 )
 
 type datastore struct {
