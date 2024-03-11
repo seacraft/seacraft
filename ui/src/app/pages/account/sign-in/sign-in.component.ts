@@ -6,13 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  public containerClass: string[] = ['container'];
   ngOnInit(): void {}
 
-  public toSignUp() {
-    this.containerClass.push('sign-up-mode');
-  }
-  public toSignIn() {
-    this.containerClass.filter((item) => item !== 'sign-up-mode');
+  public openDocument(){
+    window.open("https://github.com/seacraft/seacraft");
   }
 }

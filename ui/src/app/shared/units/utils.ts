@@ -10,7 +10,7 @@ import {
 import { AbstractControl } from '@angular/forms';
 import { isValidCron } from 'cron-validator';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import {    
+import {
     HttpOptionInterface,
     HttpOptionTextInterface,
     QuotaUnitInterface, } from '../services/interface';
@@ -762,16 +762,6 @@ export function delUrlParam(url: string, key: string): string {
     return url;
 }
 
-const PAGE_SIZE_MAP_KEY: string = 'pageSizeMap';
-
-interface DataGridMetadata {
-    pageSize?: number;
-    columnHiddenArray?: boolean[];
-}
-
-
-
-
 /**
  * Convert seconds to xx hrs xx min xx sec
  * @param distance in milliseconds
@@ -793,40 +783,4 @@ export function durationStr(distance: number): string {
         result = `${hours}hrs ${minutes}min ${seconds}sec`;
     }
     return result ? result : '0';
-}
-
-export enum PageSizeMapKeys {
-    LIST_PROJECT_COMPONENT = 'ListProjectComponent',
-    REPOSITORY_GRIDVIEW_COMPONENT = 'RepositoryGridviewComponent',
-    ARTIFACT_LIST_TAB_COMPONENT = 'ArtifactListTabComponent',
-    ARTIFACT_TAGS_COMPONENT = 'ArtifactTagComponent',
-    ARTIFACT_VUL_COMPONENT = 'ArtifactVulnerabilitiesComponent',
-    MEMBER_COMPONENT = 'MemberComponent',
-    LABEL_COMPONENT = 'LabelComponent',
-    P2P_POLICY_COMPONENT = 'P2pPolicyComponent',
-    P2P_POLICY_COMPONENT_EXECUTIONS = 'P2pPolicyComponentExecutions',
-    P2P_TASKS_COMPONENT = 'P2pTaskListComponent',
-    TAG_RETENTION_COMPONENT = 'TagRetentionComponent',
-    PROJECT_ROBOT_COMPONENT = 'ProjectRobotAccountComponent',
-    WEBHOOK_COMPONENT = 'WebhookComponent',
-    WEBHOOK_EXECUTIONS_COMPONENT = 'Webhook_Execution_Component',
-    WEBHOOK_TASKS_COMPONENT = 'Webhook_Tasks_Component',
-    PROJECT_AUDIT_LOG_COMPONENT = 'ProjectAuditLogComponent',
-    SYSTEM_RECENT_LOG_COMPONENT = 'SystemRecentLogComponent',
-    SYSTEM_USER_COMPONENT = 'SystemUserComponent',
-    SYSTEM_ROBOT_COMPONENT = 'SystemRobotAccountsComponent',
-    SYSTEM_ENDPOINT_COMPONENT = 'SystemEndpointComponent',
-    LIST_REPLICATION_RULE_COMPONENT = 'ListReplicationRuleComponent',
-    LIST_REPLICATION_RULE_COMPONENT_EXECUTIONS = 'ListReplicationRuleComponentExecutions',
-    REPLICATION_TASKS_COMPONENT = 'ReplicationTasksComponent',
-    DISTRIBUTION_INSTANCE_COMPONENT = 'DistributionInstancesComponent',
-    PROJECT_QUOTA_COMPONENT = 'ProjectQuotasComponent',
-    SYSTEM_SCANNER_COMPONENT = 'ConfigurationScannerComponent',
-    GC_HISTORY_COMPONENT = 'GcHistoryComponent',
-    SYSTEM_GROUP_COMPONENT = 'SystemGroupComponent',
-    WORKER_LIST_COMPONENT_POOL = 'WorkerListComponentPool',
-    WORKER_LIST_COMPONENT_WORKER = 'WorkerListComponentWorker',
-    SCHEDULE_LIST_COMPONENT = 'ScheduleListComponent',
-    PENDING_LIST_COMPONENT = 'PendingListComponent',
-    SECURITY_HUB_VUL = 'SecurityHubComponent',
 }
