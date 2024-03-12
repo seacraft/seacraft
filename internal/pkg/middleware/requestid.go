@@ -21,6 +21,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
+	"github.com/seacraft/pkg/log"
 )
 
 const (
@@ -35,11 +36,17 @@ func RequestID() gin.HandlerFunc {
 		rid := c.GetHeader(XRequestIDKey)
 
 		if rid == "" {
-			rid = uuid.Must(uuid.NewV4(), nil).String()
+			id, err := uuid.NewV4()
+			if err != nil {
+				fmt.Printf("%s", err.Error())
+				log.L(c).Error(fmt.Sprintf("request Id generate error %s", err.Error()))
+				c.Next()
+				return
+			}
+			rid = uuid.Must(id, nil).String()
 			c.Request.Header.Set(XRequestIDKey, rid)
 			c.Set(XRequestIDKey, rid)
 		}
-
 		// Set XRequestIDKey header
 		c.Writer.Header().Set(XRequestIDKey, rid)
 		c.Next()
