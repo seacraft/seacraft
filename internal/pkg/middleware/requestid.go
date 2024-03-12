@@ -38,7 +38,6 @@ func RequestID() gin.HandlerFunc {
 		if rid == "" {
 			id, err := uuid.NewV4()
 			if err != nil {
-				fmt.Printf("%s", err.Error())
 				log.L(c).Error(fmt.Sprintf("request Id generate error %s", err.Error()))
 				c.Next()
 				return
