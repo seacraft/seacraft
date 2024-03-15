@@ -22,8 +22,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/seacraft/component-base/pkg/util/homedir"
 	"github.com/spf13/viper"
+
+	"github.com/seacraft/component-base/pkg/util/homedir"
 
 	"github.com/seacraft/pkg/log"
 )

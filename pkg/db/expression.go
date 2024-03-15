@@ -35,6 +35,7 @@ func NewExpression() *Expression {
 		List: []*KeyValuePair{},
 	}
 }
+
 func (e *Expression) And(query any, args ...any) {
 	e.List = append(e.List, NewPair(query, args))
 }

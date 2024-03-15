@@ -16,11 +16,11 @@ package db
 
 import (
 	"context"
+
 	"github.com/seacraft/pkg/message"
 )
 
-type IRepository interface {
-}
+type IRepository interface{}
 
 type IRepositoryEntity[TEntity any] interface {
 	IRepository
@@ -36,7 +36,12 @@ type IRepositoryEntity[TEntity any] interface {
 
 	GetList(ctx context.Context, predicate *Expression, order string, includeDetails bool) ([]*TEntity, error)
 
-	GetPageList(ctx context.Context, predicate *Expression, order string, req *message.PagedListRequest) ([]*TEntity, int64, error)
+	GetPageList(
+		ctx context.Context,
+		predicate *Expression,
+		order string,
+		req *message.PagedListRequest,
+	) ([]*TEntity, int64, error)
 
 	Exist(ctx context.Context, predicate *Expression, includeDetails bool) (bool, error)
 }

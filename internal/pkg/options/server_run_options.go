@@ -15,8 +15,9 @@
 package options
 
 import (
-	"github.com/seacraft/internal/pkg/server"
 	"github.com/spf13/pflag"
+
+	"github.com/seacraft/internal/pkg/server"
 )
 
 // ServerRunOptions contains the options while running a generic api server.

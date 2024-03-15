@@ -17,8 +17,9 @@ package db
 import (
 	"time"
 
-	"github.com/seacraft/pkg/log"
 	"gorm.io/gorm"
+
+	"github.com/seacraft/pkg/log"
 )
 
 const (

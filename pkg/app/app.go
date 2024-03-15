@@ -19,6 +19,9 @@ import (
 	"os"
 
 	"github.com/fatih/color"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+
 	cliflag "github.com/seacraft/component-base/pkg/cli/flag"
 	"github.com/seacraft/component-base/pkg/cli/globalflag"
 	"github.com/seacraft/component-base/pkg/term"
@@ -26,8 +29,6 @@ import (
 	"github.com/seacraft/component-base/pkg/version/verflag"
 	"github.com/seacraft/errors"
 	"github.com/seacraft/log"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var (

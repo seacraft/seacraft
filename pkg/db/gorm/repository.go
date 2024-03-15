@@ -16,10 +16,12 @@ package gorm
 
 import (
 	"context"
+
+	"gorm.io/gorm"
+
 	"github.com/seacraft/errors"
 	"github.com/seacraft/pkg/db"
 	"github.com/seacraft/pkg/message"
-	"gorm.io/gorm"
 )
 
 type Repository[TEntity any, TKey any] struct {
@@ -41,6 +43,7 @@ func (r *Repository[TEntity, TKey]) Insert(ctx context.Context, entity *TEntity)
 	if err := r.DB.Create(entity).Error; err != nil {
 		return nil, err
 	}
+
 	return entity, nil
 }
 
@@ -48,17 +51,24 @@ func (r *Repository[TEntity, TKey]) Update(ctx context.Context, entity *TEntity)
 	if err := r.DB.Model(entity).Save(entity).Error; err != nil {
 		return nil, err
 	}
+
 	return entity, nil
 }
+
 func (r *Repository[TEntity, TKey]) Delete(ctx context.Context, entity *TEntity) error {
 	if err := r.DB.Delete(entity).Error; err != nil {
 		return err
 	}
+
 	return nil
 }
 
-func (r *Repository[TEntity, TKey]) Get(ctx context.Context, predicate *db.Expression, includeDetails bool) (*TEntity, error) {
-	var dbCtx = r.Queryable(r.DB, predicate)
+func (r *Repository[TEntity, TKey]) Get(
+	ctx context.Context,
+	predicate *db.Expression,
+	includeDetails bool,
+) (*TEntity, error) {
+	dbCtx := r.Queryable(r.DB, predicate)
 	if includeDetails {
 		dbCtx = r.Queryable(r.WithDetails(), predicate)
 	}
@@ -67,11 +77,17 @@ func (r *Repository[TEntity, TKey]) Get(ctx context.Context, predicate *db.Expre
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, errors.WithCode(db.ErrDatabase, err.Error())
 	}
+
 	return &entity, nil
 }
 
-func (r *Repository[TEntity, TKey]) GetList(ctx context.Context, predicate *db.Expression, order string, includeDetails bool) ([]*TEntity, error) {
-	var dbCtx = r.Queryable(r.DB, predicate)
+func (r *Repository[TEntity, TKey]) GetList(
+	ctx context.Context,
+	predicate *db.Expression,
+	order string,
+	includeDetails bool,
+) ([]*TEntity, error) {
+	dbCtx := r.Queryable(r.DB, predicate)
 	if includeDetails {
 		dbCtx = r.Queryable(r.WithDetails(), predicate)
 	}
@@ -79,16 +95,21 @@ func (r *Repository[TEntity, TKey]) GetList(ctx context.Context, predicate *db.E
 	if err := dbCtx.Order(order).Find(&entitys).Error; err != nil {
 		return nil, err
 	}
-	return entitys, nil
 
+	return entitys, nil
 }
 
-func (r *Repository[TEntity, TKey]) GetPageList(ctx context.Context, predicate *db.Expression, order string, req *message.PagedListRequest) ([]*TEntity, int64, error) {
+func (r *Repository[TEntity, TKey]) GetPageList(
+	ctx context.Context,
+	predicate *db.Expression,
+	order string,
+	req *message.PagedListRequest,
+) ([]*TEntity, int64, error) {
 	var (
 		entitys []*TEntity
 		total   int64
 	)
-	var dbCtx = r.Queryable(r.DB, predicate).Order(order)
+	dbCtx := r.Queryable(r.DB, predicate).Order(order)
 	err := dbCtx.Model(&entitys).Count(&total).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, 0, errors.WithCode(db.ErrDatabase, err.Error())
@@ -97,11 +118,16 @@ func (r *Repository[TEntity, TKey]) GetPageList(ctx context.Context, predicate *
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, 0, errors.WithCode(db.ErrDatabase, err.Error())
 	}
+
 	return entitys, total, nil
 }
 
-func (r *Repository[TEntity, TKey]) Exist(ctx context.Context, predicate *db.Expression, includeDetails bool) (bool, error) {
-	var dbCtx = r.DB
+func (r *Repository[TEntity, TKey]) Exist(
+	ctx context.Context,
+	predicate *db.Expression,
+	includeDetails bool,
+) (bool, error) {
+	dbCtx := r.DB
 	if includeDetails {
 		dbCtx = r.WithDetails()
 	}
@@ -110,11 +136,12 @@ func (r *Repository[TEntity, TKey]) Exist(ctx context.Context, predicate *db.Exp
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return false, errors.WithCode(db.ErrDatabase, err.Error())
 	}
+
 	return !errors.Is(err, gorm.ErrRecordNotFound), nil
 }
 
 func (r *Repository[TEntity, TKey]) GetById(ctx context.Context, id TKey, includeDetails bool) (*TEntity, error) {
-	var dbCtx = r.DB
+	dbCtx := r.DB
 	if includeDetails {
 		dbCtx = r.WithDetails()
 	}
@@ -123,6 +150,7 @@ func (r *Repository[TEntity, TKey]) GetById(ctx context.Context, id TKey, includ
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, errors.WithCode(db.ErrDatabase, err.Error())
 	}
+
 	return &entity, nil
 }
 
@@ -132,8 +160,10 @@ func (r *Repository[TEntity, TKey]) DeleteById(ctx context.Context, id TKey) err
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return errors.WithCode(db.ErrDatabase, err.Error())
 	}
+
 	return nil
 }
+
 func (r *Repository[TEntity, TKey]) Queryable(db *gorm.DB, predicate *db.Expression) *gorm.DB {
 	if predicate == nil || predicate.List == nil {
 		return db
@@ -141,6 +171,7 @@ func (r *Repository[TEntity, TKey]) Queryable(db *gorm.DB, predicate *db.Express
 	for _, pair := range predicate.List {
 		db = db.Where(pair.Key, pair.Value.([]interface{})...)
 	}
+
 	return db
 }
 
@@ -149,6 +180,7 @@ func (r *Repository[TEntity, TKey]) WithDetails() *gorm.DB {
 		return r.DetailsFunc(r.DB)
 	})
 }
+
 func (r *Repository[TEntity, TKey]) UnitOfWork() db.IUnitOfWork {
 	return r.unitOfWork
 }
