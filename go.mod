@@ -8,9 +8,10 @@ require (
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/google/uuid v1.4.0
 	github.com/gosuri/uitable v0.0.4
 	github.com/mattn/go-isatty v0.0.20
-	github.com/satori/go.uuid v1.2.0
+	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 	github.com/seacraft/component-base v1.0.0
 	github.com/seacraft/errors v1.0.0
 	github.com/seacraft/log v1.0.0

@@ -14,7 +14,7 @@
 
 
 
-# options for analysis running
+# options for analysis runningnlreturn
 run:
   # default concurrency is a available CPU number
   concurrency: 4
@@ -499,10 +499,10 @@ linters-settings:
     - pkg: knative.dev/serving/pkg/apis/autoscaling/v1alpha1
       # using `autoscalingv1alpha1` alias for `knative.dev/serving/pkg/apis/autoscaling/v1alpha1` package
       alias: autoscalingv1alpha1
-    # and alias by regular expression expansion syntax like below.
     # see https://github.com/julz/importas#use-regular-expression for details
     - pkg: knative.dev/serving/pkg/apis/(\w+)/(v[\w\d]+)
       # You can specify the package path by regular expression,
+      # and alias by regular expression expansion syntax like below.
       alias: $1$2
     # using `jwt` alias for `github.com/appleboy/gin-jwt/v2` package
     jwt: github.com/appleboy/gin-jwt/v2
@@ -800,8 +800,8 @@ linters:
   - nakedret
   - nestif
   - nilerr
-  - nlreturn
   - noctx
+  #    - nlreturn
   - nolintlint
   - paralleltest
   - prealloc
@@ -900,10 +900,10 @@ issues:
     #        - deadcode
     - forbidigo
     #        - varcheck
-
   # Exclude some staticcheck messages
   - linters:
     - staticcheck
+
     text: "SA9003:"
 
   # Exclude lll issues for long lines with go:generate

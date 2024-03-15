@@ -29,7 +29,7 @@ postgres:
   port: 5432 #postgresSql 机器 端口
   username: postgres # postgresSql 用户名(建议授权最小权限集)
   password: postgres # postgresSql 用户密码
-  database: seacraft # mars 系统所用的数据库名
+  database: seacraft # seacraft 系统所用的数据库名
   max-idle-connections: 100 # postgresSql 最大空闲连接数，默认 100
   max-open-connections: 100 # postgresSql 最大打开的连接数，默认 100
   max-connection-life-time: 10s # 空闲连接最大存活时间，默认 10s

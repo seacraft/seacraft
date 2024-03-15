@@ -12,5 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package db provide useful functions to create postgresql instance. and Common functions with ORM
-package db // import "github.com/seacraft/pkg/db"
+package db
+
+// common: database errors.
+const (
+	// ErrDatabase - 500: Database error.
+	ErrDatabase int = iota + 100101
+)

@@ -18,10 +18,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/seacraft/component-base/pkg/json"
 	"github.com/spf13/pflag"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+
+	"github.com/seacraft/component-base/pkg/json"
 )
 
 const (

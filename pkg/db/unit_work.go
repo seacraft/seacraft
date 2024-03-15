@@ -12,5 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package db provide useful functions to create postgresql instance. and Common functions with ORM
-package db // import "github.com/seacraft/pkg/db"
+package db
+
+type IDbContextTx interface {
+	DbContext() any
+	TxId() string
+	Commit() error
+	Rollback()
+}
+
+type ITransaction interface {
+	Current() IDbContextTx
+	IsHasActive() bool
+	Begin() IDbContextTx
+	Commit(tx IDbContextTx, entity ...any) error
+	Rollback()
+}
+
+type IUnitOfWork interface {
+	ITransaction
+	SaveChange(value ...any) (bool, error)
+}
