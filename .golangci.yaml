@@ -30,7 +30,7 @@ run:
 
   # list of build tags, all linters use it. Default is empty list.
   build-tags:
-    - mytag
+  - mytag
 
   # which dirs to skip: issues from them won't be reported;
   # can use regexp here: generated.*, regexp is applied on full path;
@@ -39,9 +39,9 @@ run:
   # "/" will be replaced by current OS file path separator to properly work
   # on Windows.
   skip-dirs:
-    - util
-    - .*~
-    - api/swagger/docs
+  - util
+  - .*~
+  - api/swagger/docs
 
   # default is true. Enables skipping of directories:
   #   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
@@ -54,8 +54,8 @@ run:
   # "/" will be replaced by current OS file path separator to properly work
   # on Windows.
   skip-files:
-    - ".*\\.my\\.go$"
-    - _test.go
+  - ".*\\.my\\.go$"
+  - _test.go
 
   # by default isn't set. If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
@@ -121,15 +121,15 @@ linters-settings:
     # default is false: such cases aren't reported by default.
     check-blank: false
 
-    # [deprecated] comma-separated list of pairs of the form pkg:regex
-    # the regex is used to ignore names within pkg. (default "fmt:.*").
-    # see https://github.com/kisielk/errcheck#the-deprecated-method for details
-    #ignore: GenMarkdownTree,os:.*,BindPFlags,WriteTo,Help
-    #ignore: (os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv
+  # [deprecated] comma-separated list of pairs of the form pkg:regex
+  # the regex is used to ignore names within pkg. (default "fmt:.*").
+  # see https://github.com/kisielk/errcheck#the-deprecated-method for details
+  #ignore: GenMarkdownTree,os:.*,BindPFlags,WriteTo,Help
+  #ignore: (os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv
 
-    # path to a file containing a list of functions to exclude from checking
-    # see https://github.com/kisielk/errcheck#excluding-functions for details
-    #exclude: errcheck.txt
+  # path to a file containing a list of functions to exclude from checking
+  # see https://github.com/kisielk/errcheck#excluding-functions for details
+  #exclude: errcheck.txt
 
   errorlint:
     # Check whether fmt.Errorf uses the %w verb for formatting errors. See the readme for caveats
@@ -153,18 +153,18 @@ linters-settings:
     package-scope-only: false
   exhaustivestruct:
     struct-patterns:
-      - '*.Test'
-      - '*.Test2'
-      - '*.Embedded'
-      - '*.External'
+    - '*.Test'
+    - '*.Test2'
+    - '*.Embedded'
+    - '*.External'
 
   forbidigo:
     # Forbid the following identifiers (identifiers are written using regexp):
     forbid:
-      - ^print.*$
-      - 'fmt\.Print.*'
-      - fmt.Println.* # too much log noise
-      - ginkgo\\.F.* # these are used just for local development
+    - ^print.*$
+    - 'fmt\.Print.*'
+    - fmt.Println.* # too much log noise
+    - ginkgo\\.F.* # these are used just for local development
     # Exclude godoc examples from forbidigo checks.  Default is true.
     exclude_godoc_examples: false
   funlen:
@@ -202,24 +202,24 @@ linters-settings:
     # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`
     # By default list of stable checks is used.
     enabled-checks:
-      #- rangeValCopy
-      - nestingreduce
-      - truncatecmp
-      - unnamedresult
-      - ruleguard
+    #- rangeValCopy
+    - nestingreduce
+    - truncatecmp
+    - unnamedresult
+    - ruleguard
 
     # Which checks should be disabled; can't be combined with 'enabled-checks'; default is empty
     disabled-checks:
-      - regexpMust
-      - ifElseChain
-      #- exitAfterDefer
+    - regexpMust
+    - ifElseChain
+    #- exitAfterDefer
 
     # Enable multiple checks by tags, run `GL_DEBUG=gocritic golangci-lint run` to see all tags and checks.
     # Empty list by default. See https://github.com/go-critic/go-critic#usage -> section "Tags".
     enabled-tags:
-      - performance
+    - performance
     disabled-tags:
-      - experimental
+    - experimental
 
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.
@@ -282,12 +282,12 @@ linters-settings:
     # report any comments starting with keywords, this is useful for TODO or FIXME comments that
     # might be left in the code accidentally and should be resolved before merging
     keywords: # default keywords are TODO, BUG, and FIXME, these can be overwritten by this setting
-      #- TODO
-      - BUG
-      - FIXME
-      #- NOTE
-      - OPTIMIZE # marks code that should be optimized before merging
-      - HACK # marks hack-arounds that should be removed before merging
+    #- TODO
+    - BUG
+    - FIXME
+    #- NOTE
+    - OPTIMIZE # marks code that should be optimized before merging
+    - HACK # marks hack-arounds that should be removed before merging
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
     simplify: true
@@ -341,17 +341,17 @@ linters-settings:
         # the list of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
         checks: argument,case,condition,operation,return,assign
         # ignored-numbers: 1000
-        # ignored-files: magic_.*.go
-        # ignored-functions: math.*
+  # ignored-files: magic_.*.go
+  # ignored-functions: math.*
   gomoddirectives:
     # Allow local `replace` directives. Default is false.
     replace-local: true
     # List of allowed `replace` directives. Default is empty.
     replace-allow-list:
-      - google.golang.org/grpc
-      - github.com/seacraft/api
-      - github.com/seacraft/component-base
-#      - github.com/seacraft/seacraft-sdk-go
+    - google.golang.org/grpc
+    - github.com/seacraft/api
+    - github.com/seacraft/component-base
+    #      - github.com/seacraft/seacraft-sdk-go
 
     # Allow to not explain why the version has been retracted in the `retract` directives. Default is false.
     retract-allow-no-explanation: false
@@ -359,41 +359,41 @@ linters-settings:
     exclude-forbidden: false
   gomodguard:
     allowed:
-      modules:                                                        # List of allowed modules
-        - gorm.io/gorm
-        - gorm.io/driver/postgres
-        - k8s.io/klog
-        # - gopkg.in/yaml.v2
-      domains:                                                        # List of allowed module domains
-        - google.golang.org
-        - gopkg.in
-        - golang.org
-        - github.com
-        - go.uber.org
-        - go.etcd.io
+      modules: # List of allowed modules
+      - gorm.io/gorm
+      - gorm.io/driver/postgres
+      - k8s.io/klog
+      # - gopkg.in/yaml.v2
+      domains: # List of allowed module domains
+      - google.golang.org
+      - gopkg.in
+      - golang.org
+      - github.com
+      - go.uber.org
+      - go.etcd.io
     blocked:
       modules:
-        - github.com/pkg/errors:
-            recommendations:
-              - github.com/seacraft/errors
-            reason: "`github.com/seacraft/errors` is the log package used by seacraft projects."
+      - github.com/pkg/errors:
+          recommendations:
+          - github.com/seacraft/errors
+          reason: "`github.com/seacraft/errors` is the log package used by seacraft projects."
       versions:
-        - github.com/MakeNowJust/heredoc:
-            version: "> 2.0.9"
-            reason: "use the latest version"
-      local_replace_directives: false     # Set to true to raise lint issues for packages that are loaded from a local path via replace directive
+      - github.com/MakeNowJust/heredoc:
+          version: "> 2.0.9"
+          reason: "use the latest version"
+      local_replace_directives: false # Set to true to raise lint issues for packages that are loaded from a local path via replace directive
 
   gosec:
     # To select a subset of rules to run.
     # Available rules: https://github.com/securego/gosec#available-rules
     includes:
-      - G401
-      - G306
-      - G101
+    - G401
+    - G306
+    - G101
     # To specify a set of rules to explicitly exclude.
     # Available rules: https://github.com/securego/gosec#available-rules
     excludes:
-      - G204
+    - G204
     # Exclude generated files
     exclude-generated: true
     # Filter out the issues with a lower severity than the given value. Valid options are: low, medium, high.
@@ -417,7 +417,7 @@ linters-settings:
     # Select the Go version to target. The default is '1.13'.
     go: "1.15"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all" ]
+    checks: ["all"]
 
   govet:
     # report about shadowed variables
@@ -427,60 +427,60 @@ linters-settings:
     settings:
       printf: # analyzer name, run `go tool vet help` to see all analyzers
         funcs: # run `go tool vet help printf` to see available settings for `printf` analyzer
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+        - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+        - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+        - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+        - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
 
     # enable or disable analyzers by name
     enable:
-      - atomicalign
+    - atomicalign
     enable-all: false
     disable:
-      - shadow
+    - shadow
     disable-all: false
   depguard:
     list-type: blacklist
     include-go-root: false
     packages:
-      - github.com/Sirupsen/logrus
+    - github.com/Sirupsen/logrus
     packages-with-error-message:
-      # specify an error message to output when a blacklisted package is used
-      - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
+    # specify an error message to output when a blacklisted package is used
+    - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
     rules:
       main:
         files:
-          - $all
-          - "!$test"
+        - $all
+        - "!$test"
         allow:
-          - $gostd
-#          - github.com/seacraft # all seacraft packages
-#          - github.com/gin-gonic #
-#          - github.com/gin-contrib #
-#          - github.com/spf13
-#          - github.com/asaskevich
-#          - github.com/satori
-#          - github.com/tpkeeper
-#          - github.com/mattn
-#          - github.com/fatih
-          - github.com
-          - k8s.io
+        - $gostd
+        #          - github.com/gin-gonic #
+        #          - github.com/gin-contrib #
+        #          - github.com/spf13
+        #          - github.com/asaskevich
+        #          - github.com/satori
+        #          - github.com/tpkeeper
+        #          - github.com/mattn
+        #          - github.com/fatih
+        - github.com
+        #          - github.com/seacraft # all seacraft packages
+        - k8s.io
       test:
         files:
-          - "$test"
+        - "$test"
         allow:
-          - $gostd
-#          - github.com/seacraft
-#          - github.com/gin-gonic #
-#          - github.com/gin-contrib #
-#          - github.com/spf13
-#          - github.com/asaskevich
-#          - github.com/satori
-#          - github.com/tpkeeper
-#          - github.com/mattn
-#          - github.com/fatih
-          - github.com
-          - k8s.io
+        - $gostd
+        #          - github.com/gin-gonic #
+        #          - github.com/gin-contrib #
+        #          - github.com/spf13
+        #          - github.com/asaskevich
+        #          - github.com/satori
+        #          - github.com/tpkeeper
+        #          - github.com/mattn
+        #          - github.com/fatih
+        - github.com
+        #          - github.com/seacraft
+        - k8s.io
   ifshort:
     # Maximum length of variable declaration measured in number of lines, after which linter won't suggest using short syntax.
     # Has higher priority than max-decl-chars.
@@ -493,17 +493,17 @@ linters-settings:
     no-unaliased: true
     # List of aliases
     alias:
-      # using `servingv1` alias for `knative.dev/serving/pkg/apis/serving/v1` package
-      - pkg: knative.dev/serving/pkg/apis/serving/v1
-        alias: servingv1
+    # using `servingv1` alias for `knative.dev/serving/pkg/apis/serving/v1` package
+    - pkg: knative.dev/serving/pkg/apis/serving/v1
+      alias: servingv1
+    - pkg: knative.dev/serving/pkg/apis/autoscaling/v1alpha1
       # using `autoscalingv1alpha1` alias for `knative.dev/serving/pkg/apis/autoscaling/v1alpha1` package
-      - pkg: knative.dev/serving/pkg/apis/autoscaling/v1alpha1
-        alias: autoscalingv1alpha1
+      alias: autoscalingv1alpha1
+    # and alias by regular expression expansion syntax like below.
+    # see https://github.com/julz/importas#use-regular-expression for details
+    - pkg: knative.dev/serving/pkg/apis/(\w+)/(v[\w\d]+)
       # You can specify the package path by regular expression,
-      # and alias by regular expression expansion syntax like below.
-      # see https://github.com/julz/importas#use-regular-expression for details
-      - pkg: knative.dev/serving/pkg/apis/(\w+)/(v[\w\d]+)
-        alias: $1$2
+      alias: $1$2
     # using `jwt` alias for `github.com/appleboy/gin-jwt/v2` package
     jwt: github.com/appleboy/gin-jwt/v2
     # using `metav1` alias for `github.com/seacraft/component-base/pkg/meta/v1` package
@@ -521,16 +521,16 @@ linters-settings:
     # By default, it allows using errors, empty interfaces, anonymous interfaces,
     # and interfaces provided by the standard library.
     allow:
-      - anon
-      - error
-      - empty
-      - stdlib
-      # You can specify idiomatic endings for interface
-      - (or|er)$
+    - anon
+    - error
+    - empty
+    - stdlib
+    # You can specify idiomatic endings for interface
+    - (or|er)$
 
     # Reject patterns
     reject:
-      - github.com\/user\/package\/v4\.Type
+    - github.com\/user\/package\/v4\.Type
 
   lll:
     # max line length, lines longer will be reported. Default is 120.
@@ -547,7 +547,7 @@ linters-settings:
     # Setting locale to US will correct the British spelling of 'colour' to 'color'.
     locale: US
     ignore-words:
-      - someword
+    - someword
   nakedret:
     # make an issue if func has more lines of code than this setting and it has naked returns; default is 30
     max-func-lines: 30
@@ -559,11 +559,11 @@ linters-settings:
   nilnil:
     # By default, nilnil checks all returned types below.
     checked-types:
-      - ptr
-      - func
-      - iface
-      - map
-      - chan
+    - ptr
+    - func
+    - iface
+    - map
+    - chan
 
   nlreturn:
     # size of the block (including return statement that is still "OK")
@@ -576,7 +576,7 @@ linters-settings:
     # Disable to ensure that nolint directives don't have a leading space. Default is true.
     allow-leading-space: true
     # Exclude following linters from requiring an explanation.  Default is [].
-    allow-no-explanation: [ ]
+    allow-no-explanation: []
     # Enable to require an explanation of nonzero length after each nolint directive. Default is false.
     require-explanation: false
     # Enable to require nolint directives to mention the specific linter being suppressed. Default is false.
@@ -614,33 +614,33 @@ linters-settings:
     q: false
   rowserrcheck:
     packages:
-      - github.com/jmoiron/sqlx
+    - github.com/jmoiron/sqlx
   revive:
     # see https://github.com/mgechev/revive#available-rules for details.
     ignore-generated-header: true
     severity: warning
     rules:
-      - name: indent-error-flow
-        severity: warning
+    - name: indent-error-flow
+      severity: warning
   staticcheck:
     # Select the Go version to target. The default is '1.13'.
     go: "1.16"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all" ]
+    checks: ["all"]
 
   stylecheck:
     # Select the Go version to target. The default is '1.13'.
     go: "1.16"
 
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022" ]
+    checks: ["all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022"]
     # https://staticcheck.io/docs/options#dot_import_whitelist
     dot-import-whitelist:
-      - fmt
+    - fmt
     # https://staticcheck.io/docs/options#initialisms
-    initialisms: [ "ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS" ]
+    initialisms: ["ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS"]
     # https://staticcheck.io/docs/options#http_status_code_whitelist
-    http-status-code-whitelist: [ "200", "400", "404", "500" ]
+    http-status-code-whitelist: ["200", "400", "404", "500"]
 
 
   tagliatelle:
@@ -695,7 +695,7 @@ linters-settings:
     # with golangci-lint call it on a directory with the changed file.
     check-exported: false
   whitespace:
-    multi-if: false   # Enforces newlines (or comments) after every multi-line if statement
+    multi-if: false # Enforces newlines (or comments) after every multi-line if statement
     multi-func: false # Enforces newlines (or comments) after every multi-line function signature
 
   wrapcheck:
@@ -703,17 +703,17 @@ linters-settings:
     # If this set, it will override the default set of ignored signatures.
     # See https://github.com/tomarrell/wrapcheck#configuration for more information.
     ignoreSigs:
-      - .Errorf(
-      - errors.New(
-      - errors.Unwrap(
-      - .Wrap(
-      - .Wrapf(
-      - .WithMessage(
-      - .WithMessagef(
-      - .WithStack(
+    - .Errorf(
+    - errors.New(
+    - errors.Unwrap(
+    - .Wrap(
+    - .Wrapf(
+    - .WithMessage(
+    - .WithMessagef(
+    - .WithStack(
     ignorePackageGlobs:
-      - encoding/*
-      - github.com/pkg/*
+    - encoding/*
+    - github.com/pkg/*
 
   wsl:
     # If true append is only allowed to be cuddled if appending value is
@@ -741,17 +741,17 @@ linters-settings:
     always: false
 
 
-      # The custom section can be used to define linter plugins to be loaded at runtime. See README doc
-      #  for more info.
-      #custom:
-      # Each custom linter should have a unique name.
-      #example:
-      # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
-      #path: /path/to/example.so
-      # The description of the linter. Optional, just for documentation purposes.
-      #description: This is an example usage of a plugin linter.
-      # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
-    #original-url: github.com/golangci/example-linter
+# The custom section can be used to define linter plugins to be loaded at runtime. See README doc
+#  for more info.
+#custom:
+# Each custom linter should have a unique name.
+#example:
+# The path to the plugin *.so. Can be absolute or local. Required for each custom linter
+#path: /path/to/example.so
+# The description of the linter. Optional, just for documentation purposes.
+#description: This is an example usage of a plugin linter.
+# Intended to point to the repo location of the linter. Optional, just for documentation purposes.
+#original-url: github.com/golangci/example-linter
 
 linters:
   # please, do not use `enable-all`: it's deprecated and will be removed soon.
@@ -759,87 +759,87 @@ linters:
   # enable-all: true
   disable-all: true
   enable:
-    - typecheck
-    - asciicheck
-    - bodyclose
-    - cyclop
-#    - deadcode
-    - depguard
-    - dogsled
-    - dupl
-    - durationcheck
-    - errcheck
-    - errorlint
-    - exhaustive
-    - exportloopref
-    - forbidigo
-    - funlen
-    #- gci
-    - gochecknoinits
-    - gocognit
-    - goconst
-    - gocyclo
-    - godot
-    - godox
-    - gofmt
-    - gofumpt
-    - goheader
-    - goimports
-    - gomoddirectives
-    - gomodguard
-    - goprintffuncname
-    - gosec
-    - gosimple
-    - govet
-#    - ifshort
-    - importas
-    - ineffassign
-    - lll
-    - makezero
-    - misspell
-    - nakedret
-    - nestif
-    - nilerr
-    - nlreturn
-    - noctx
-    - nolintlint
-    - paralleltest
-    - prealloc
-    - predeclared
-    - promlinter
-    - revive
-    - rowserrcheck
-    - sqlclosecheck
-    - staticcheck
-#    - structcheck
-    - stylecheck
-    - thelper
-    - tparallel
-    - unconvert
-    - unparam
-    - unused
-#    - varcheck
-    - wastedassign
-    - whitespace
-    - bidichk
-    - wastedassign
-#    - golint
-    - execinquery
-    - nosprintfhostport
-    - grouper
-    - decorder
-    - errchkjson
-    - maintidx
-      #- containedctx
-      #- tagliatelle
-      #- nonamedreturns
-      #- nilnil
-      #- tenv
-      #- varnamelen
-      #- contextcheck
-      #- errname
-      #- ForceTypeAssert
-    #- nilassign
+  - typecheck
+  - asciicheck
+  - bodyclose
+  - cyclop
+  - depguard
+  #    - deadcode
+  - dogsled
+  - dupl
+  - durationcheck
+  - errcheck
+  - errorlint
+  - exhaustive
+  - exportloopref
+  - forbidigo
+  - funlen
+  #- gci
+  - gochecknoinits
+  - gocognit
+  - goconst
+  - gocyclo
+  - godot
+  - godox
+  - gofmt
+  - gofumpt
+  - goheader
+  - goimports
+  - gomoddirectives
+  - gomodguard
+  - goprintffuncname
+  - gosec
+  - gosimple
+  - govet
+  - importas
+  #    - ifshort
+  - ineffassign
+  - lll
+  - makezero
+  - misspell
+  - nakedret
+  - nestif
+  - nilerr
+  - nlreturn
+  - noctx
+  - nolintlint
+  - paralleltest
+  - prealloc
+  - predeclared
+  - promlinter
+  - revive
+  - rowserrcheck
+  - sqlclosecheck
+  - staticcheck
+  - stylecheck
+  #    - structcheck
+  - thelper
+  - tparallel
+  - unconvert
+  - unparam
+  - unused
+  - wastedassign
+  #    - varcheck
+  - whitespace
+  - bidichk
+  - wastedassign
+  - execinquery
+  #    - golint
+  - nosprintfhostport
+  - grouper
+  - decorder
+  - errchkjson
+  - maintidx
+  #- containedctx
+  #- tagliatelle
+  #- nonamedreturns
+  #- nilnil
+  #- tenv
+  #- varnamelen
+  #- contextcheck
+  #- errname
+  #- ForceTypeAssert
+  #- nilassign
   fast: false
 
 issues:
@@ -848,68 +848,68 @@ issues:
   # it can be disabled by `exclude-use-default: false`. To list all
   # excluded by default patterns execute `golangci-lint run --help`
   exclude:
-    - tools/.*
-    - test/.*
-    - third_party/.*
+  - tools/.*
+  - test/.*
+  - third_party/.*
 
   # Excluding configuration per-path, per-linter, per-text and per-source
   exclude-rules:
-    - linters:
-        - errorlint
-      path: (pkg/validator/.*)\.go
-    - linters:
-        - revive
-      path: (log/.*)\.go
+  - linters:
+    - errorlint
+    path: (pkg/validator/.*)\.go
+  - linters:
+    - revive
+    path: (log/.*)\.go
 
-    - linters:
-        - wrapcheck
-      path: (cmd/.*|pkg/.*)\.go
+  - linters:
+    - wrapcheck
+    path: (cmd/.*|pkg/.*)\.go
 
-    - linters:
-        - typecheck
-        #path: (pkg/storage/.*)\.go
-      path: (internal/.*|pkg/.*)\.go
+  - linters:
+    - typecheck
+    #path: (pkg/storage/.*)\.go
+    path: (internal/.*|pkg/.*)\.go
 
-    - path: (cmd/.*|test/.*|tools/.*|internal/pump/pumps/.*)\.go
-      linters:
-        - forbidigo
+  - path: (cmd/.*|test/.*|tools/.*)\.go
+    linters:
+    - forbidigo
 
-    - path: (cmd/[a-z]*/.*|store/.*)\.go
-      linters:
-        - dupl
+  - path: (cmd/[a-z]*/.*|store/.*)\.go
+    linters:
+    - dupl
 
-    - linters:
-        - gocritic
-      text: (hugeParam:|rangeValCopy:)
+  - linters:
+    - gocritic
+    text: (hugeParam:|rangeValCopy:)
 
-    - path: (cmd/[a-z]*/.*)\.go
-      linters:
-        - lll
+  - path: (cmd/[a-z]*/.*)\.go
+    linters:
+    - lll
 
-    - path: (validator/.*|code/.*|validator/.*|watcher/watcher/.*)
-      linters:
-        - gochecknoinits
+  - path: (validator/.*|code/.*|validator/.*|watcher/watcher/.*)
+    linters:
+    - gochecknoinits
 
-    - path: (internal/.*/options|internal/pump|pkg/log/options.go|internal/authzserver|tools/)
-      linters:
-        - tagliatelle
+  - path: (internal/.*/options|pkg/log/options.go|tools/)
+    linters:
+    - tagliatelle
 
-    - path: (pkg/app/.*)\.go
-      linters:
-#        - deadcode
-        - unused
-#        - varcheck
-        - forbidigo
+  - path: (pkg/app/.*)\.go
+    linters:
+    - unused
+    #        - deadcode
+    - forbidigo
+    #        - varcheck
 
-    # Exclude some staticcheck messages
-    - linters:
-        - staticcheck
-      text: "SA9003:"
+  # Exclude some staticcheck messages
+  - linters:
+    - staticcheck
+    text: "SA9003:"
 
-    # Exclude lll issues for long lines with go:generate
-    - linters:
-        - lll
-      source: "^//go:generate "
+  # Exclude lll issues for long lines with go:generate
+  - linters:
+    - lll
+    source: "^//go:generate "
 
   # Independently from option `exclude` we use default exclude patterns,
   # it can be disabled by this option. To list all
@@ -923,7 +923,7 @@ issues:
 
   # The list of ids of default excludes to include or disable. By default it's empty.
   include:
-    - EXC0002 # disable excluding of issues about comments from golint
+  - EXC0002 # disable excluding of issues about comments from golint
 
   # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
   max-issues-per-linter: 0
@@ -969,6 +969,6 @@ severity:
   # are allowed to specify one matcher per severity rule.
   # Only affects out formats that support setting severity information.
   rules:
-    - linters:
-        - dupl
-      severity: info
+  - linters:
+    - dupl
+    severity: info
