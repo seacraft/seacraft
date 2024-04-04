@@ -18,10 +18,13 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/seacraft/internal/apiserver/repository"
+	v1 "github.com/seacraft/internal/apiserver/repository/model/v1"
+	repo "github.com/seacraft/pkg/db/gorm"
+
 	"gorm.io/gorm"
 
 	"github.com/seacraft/errors"
-	"github.com/seacraft/internal/apiserver/store"
 	"github.com/seacraft/internal/pkg/logger"
 	genericoptions "github.com/seacraft/internal/pkg/options"
 	"github.com/seacraft/pkg/db"
@@ -29,6 +32,14 @@ import (
 
 type datastore struct {
 	db *gorm.DB
+}
+
+func (ds *datastore) AppServices() repository.AppServiceRepository {
+	return newAppServices(ds)
+}
+
+func (ds *datastore) AppTemplates() repository.AppTemplateRepository {
+	return newAppTemplates(ds)
 }
 
 func (ds *datastore) Close() error {
@@ -40,13 +51,21 @@ func (ds *datastore) Close() error {
 	return db.Close()
 }
 
+func (ds *datastore) Begin() (db.IUnitOfWork, repository.Factory) {
+	unitOfWork := repo.NewUnitOfWork(ds.db)
+	_ = unitOfWork.Begin()
+	return unitOfWork, &datastore{
+		unitOfWork.Current().DbContext().(*gorm.DB),
+	}
+}
+
 var (
-	postgresqlFactory store.Factory
+	postgresqlFactory repository.Factory
 	once              sync.Once
 )
 
 // GetPostgreSQLFactoryOr create postgresql factory with the given config.
-func GetPostgreSQLFactoryOr(opts *genericoptions.PostgresSQLOptions) (store.Factory, error) {
+func GetPostgreSQLFactoryOr(opts *genericoptions.PostgresSQLOptions) (repository.Factory, error) {
 	if opts == nil && postgresqlFactory == nil {
 		return nil, fmt.Errorf("failed to get postgresql store fatory")
 	}
@@ -85,6 +104,16 @@ func GetPostgreSQLFactoryOr(opts *genericoptions.PostgresSQLOptions) (store.Fact
 //
 //nolint:unused // may be reused in the feature, or just show a migrate usage.
 func cleanDatabase(db *gorm.DB) error {
+	if err := db.Migrator().DropTable(&v1.AppTemplate{}); err != nil {
+		return errors.Wrap(err, "drop  appTemplate failed")
+	}
+	if err := db.Migrator().DropTable(&v1.AppServiceItem{}); err != nil {
+		return errors.Wrap(err, "drop  appServiceItem failed")
+	}
+	if err := db.Migrator().DropTable(&v1.AppService{}); err != nil {
+		return errors.Wrap(err, "drop  appService failed")
+	}
+
 	return nil
 }
 
@@ -93,6 +122,15 @@ func cleanDatabase(db *gorm.DB) error {
 //
 
 func migrateDatabase(db *gorm.DB) error {
+	if err := db.AutoMigrate(&v1.AppTemplate{}); err != nil {
+		return errors.Wrap(err, "migrate AppTemplate model failed")
+	}
+	if err := db.AutoMigrate(&v1.AppServiceItem{}); err != nil {
+		return errors.Wrap(err, "migrate AppServiceItem model failed")
+	}
+	if err := db.AutoMigrate(&v1.AppService{}); err != nil {
+		return errors.Wrap(err, "migrate AppService model failed")
+	}
 	return nil
 }
 

@@ -12,11 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package store
+package repository
+
+import "github.com/seacraft/pkg/db"
 
 var client Factory
 
 type Factory interface {
+	AppTemplates() AppTemplateRepository
+	AppServices() AppServiceRepository
+	Begin() (db.IUnitOfWork, Factory)
 	Close() error
 }
 
