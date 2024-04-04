@@ -16,8 +16,8 @@ package apiserver
 
 import (
 	"github.com/seacraft/internal/apiserver/config"
-	"github.com/seacraft/internal/apiserver/store"
-	"github.com/seacraft/internal/apiserver/store/postgresql"
+	"github.com/seacraft/internal/apiserver/repository"
+	"github.com/seacraft/internal/apiserver/repository/postgresql"
 	genericoptions "github.com/seacraft/internal/pkg/options"
 	genericapiserver "github.com/seacraft/internal/pkg/server"
 	"github.com/seacraft/pkg/log"
@@ -92,7 +92,7 @@ type completedExtraConfig struct {
 // init  instance.
 func (c *completedExtraConfig) init() error {
 	storeIns, _ := postgresql.GetPostgreSQLFactoryOr(c.postgresSQLOptions)
-	store.SetClient(storeIns)
+	repository.SetClient(storeIns)
 
 	return nil
 }
