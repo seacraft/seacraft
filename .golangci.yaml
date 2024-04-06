@@ -80,7 +80,7 @@ output:
   # print lines of code with issue, default is true
   print-issued-lines: true
 
-  # print linter name in the end of issue text, default is true
+  # print linter name in the end of issue text, default is true15-87 lines are duplicate of `internal/apiserver/service/v1/app_service.go:15-86` (dupl)
   print-linter-name: true
 
   # make issues output unique by line, default is true
