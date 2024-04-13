@@ -15,12 +15,14 @@
 package appservice
 
 import (
+	v1 "github.com/seacraft/internal/apiserver/controller/v1"
 	"github.com/seacraft/internal/apiserver/repository"
 	srvv1 "github.com/seacraft/internal/apiserver/service/v1"
 )
 
 // AppServiceController create a secret handler used to handle request for app service resource.
 type AppServiceController struct {
+	v1.BaseController
 	srv srvv1.Service
 }
 

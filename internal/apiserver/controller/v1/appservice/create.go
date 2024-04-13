@@ -13,3 +13,31 @@
 // limitations under the License.
 
 package appservice
+
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/seacraft/component-base/pkg/core"
+	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
+	"github.com/seacraft/errors"
+	msg "github.com/seacraft/internal/apiserver/service/message/v1"
+	"github.com/seacraft/internal/pkg/code"
+	"github.com/seacraft/pkg/log"
+)
+
+// Create an application service and add the application
+// service to the template，and store it in the storage.
+
+func (a AppServiceController) Create(c *gin.Context) {
+	log.L(c).Info("create app service function called. ")
+	var r msg.CreateAppServiceRequest
+	if err := c.ShouldBindJSON(&r); err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+		return
+	}
+	if err := a.srv.AppService().Create(c, &r, metav1.CreateOptions{}); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+	core.WriteResponse(c, nil, r)
+}

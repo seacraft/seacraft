@@ -13,3 +13,17 @@
 // limitations under the License.
 
 package message
+
+type CreateAppServiceRequest struct {
+	// Required: true
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type UpdateAppServiceRequest struct {
+	// Required: true
+	Id uint64 `json:"id"`
+	// Required: true
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}

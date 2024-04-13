@@ -12,26 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package appservice
+package v1
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/seacraft/component-base/pkg/core"
-	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
-	"github.com/seacraft/pkg/log"
+	"github.com/seacraft/errors"
+	"github.com/seacraft/internal/pkg/code"
 )
 
-// Delete delete a application service  by the id identifier.
-func (a *AppServiceController) Delete(c *gin.Context) {
-	log.L(c).Info("delete app service function called.")
-	id, ok := a.ParseUint64(c, c.Param("id"))
-	if !ok {
-		return
+type BaseController struct{}
+
+// ParseUint64 Parse the Id on the URL and convert it to uint64 bits.
+func (b *BaseController) ParseUint64(c *gin.Context, id string) (uint64, bool) {
+	uid, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+		return 0, false
 	}
-	if err := a.srv.AppTemplates().Delete(c, id, metav1.DeleteOptions{}); err != nil {
-		core.WriteResponse(c, err, nil)
-		return
-	}
-	core.WriteResponse(c, nil, nil)
+	return uid, true
 }
