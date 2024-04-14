@@ -13,3 +13,25 @@
 // limitations under the License.
 
 package appservice
+
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/seacraft/component-base/pkg/core"
+	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
+	"github.com/seacraft/pkg/log"
+)
+
+// Get return application service by the application service id identifier.
+func (a *AppServiceController) Get(c *gin.Context) {
+	log.L(c).Info("get app service function called.")
+	id, ok := a.ParseUint64(c, c.Param("id"))
+	if !ok {
+		return
+	}
+	svc, err := a.srv.AppService().Get(c, id, metav1.GetOptions{})
+	if err != nil {
+		core.WriteResponse(c, err, nil)
+	}
+	core.WriteResponse(c, nil, svc)
+}

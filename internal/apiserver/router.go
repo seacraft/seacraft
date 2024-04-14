@@ -14,7 +14,13 @@
 
 package apiserver
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/seacraft/internal/apiserver/controller/v1/appservice"
+	"github.com/seacraft/internal/apiserver/controller/v1/apptemplate"
+	"github.com/seacraft/internal/apiserver/repository/postgresql"
+)
 
 func initRouter(g *gin.Engine) {
 	installMiddleware(g)
@@ -25,5 +31,28 @@ func installMiddleware(g *gin.Engine) {
 }
 
 func installController(g *gin.Engine) *gin.Engine {
+	// v1 handlers, requiring authentication
+	storeIns, _ := postgresql.GetPostgreSQLFactoryOr(nil)
+	v1 := g.Group("/v1")
+	{
+		tmpv1 := v1.Group("templates")
+		{
+			appTemplateController := apptemplate.NewAppTemplateController(storeIns)
+			tmpv1.POST("", appTemplateController.Create)
+			tmpv1.PUT(":id", appTemplateController.Update)
+			tmpv1.DELETE(":id", appTemplateController.Delete)
+			tmpv1.GET(":id", appTemplateController.Get)
+			tmpv1.GET("", appTemplateController.List)
+		}
+		svcv1 := v1.Group("services")
+		{
+			appServiceController := appservice.NewAppServiceController(storeIns)
+			svcv1.POST("", appServiceController.Create)
+			svcv1.PUT(":id", appServiceController.Update)
+			svcv1.DELETE(":id", appServiceController.Delete)
+			svcv1.GET(":id", appServiceController.Get)
+			svcv1.GET("", appServiceController.List)
+		}
+	}
 	return g
 }

@@ -15,16 +15,18 @@
 package apptemplate
 
 import (
+	v1 "github.com/seacraft/internal/apiserver/controller/v1"
 	"github.com/seacraft/internal/apiserver/repository"
 	srvv1 "github.com/seacraft/internal/apiserver/service/v1"
 )
 
-// AppTemplateController create a secret handler used to handle request for app template resource.
+// AppTemplateController create a application handler used to handle request for application template resource.
 type AppTemplateController struct {
+	v1.BaseController
 	srv srvv1.Service
 }
 
-// NewAppTemplateController creates a app template handler.
+// NewAppTemplateController creates a application template handler.
 func NewAppTemplateController(repo repository.Factory) *AppTemplateController {
 	return &AppTemplateController{
 		srv: srvv1.NewService(repo),
