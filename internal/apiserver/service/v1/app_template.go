@@ -16,6 +16,11 @@ package v1
 
 import (
 	"context"
+	"fmt"
+
+	msg "github.com/seacraft/internal/apiserver/service/message/v1"
+	"github.com/seacraft/internal/pkg/code"
+	"github.com/seacraft/pkg/util"
 
 	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
 	"github.com/seacraft/errors"
@@ -25,8 +30,8 @@ import (
 )
 
 type AppTemplateSrv interface {
-	Create(ctx context.Context, appTemplate *v1.AppTemplate, opts metav1.CreateOptions) error
-	Update(ctx context.Context, appTemplate *v1.AppTemplate, ops metav1.UpdateOptions) error
+	Create(ctx context.Context, req *msg.CreateAppTemplateRequest, opts metav1.CreateOptions) error
+	Update(ctx context.Context, req *msg.UpdateAppTemplateRequest, ops metav1.UpdateOptions) error
 	Delete(ctx context.Context, id uint64, ops metav1.DeleteOptions) error
 	Get(ctx context.Context, id uint64, ops metav1.GetOptions) (*v1.AppTemplate, error)
 	List(ctx context.Context, ops metav1.ListOptions) (*v1.AppTemplateList, error)
@@ -42,15 +47,56 @@ func newAppTemplates(srv *service) *appTemplateService {
 	return &appTemplateService{repo: srv.repo}
 }
 
-func (a *appTemplateService) Create(ctx context.Context, appTemplate *v1.AppTemplate, opts metav1.CreateOptions) error {
-	if _, err := a.repo.AppTemplates().Insert(ctx, appTemplate); err != nil {
+func (a *appTemplateService) Create(
+	ctx context.Context,
+	req *msg.CreateAppTemplateRequest,
+	opts metav1.CreateOptions,
+) error {
+	exp := db.NewExpression()
+	if util.Trim(req.Name) != "" {
+		exp.And("name = ?", req.Name)
+	}
+	exit, _ := a.repo.AppTemplates().Exist(ctx, exp, false)
+	if exit {
+		return errors.WithCode(
+			code.ErrValidation,
+			fmt.Sprintf("%s The application template name already exists! Please change another name!", req.Name),
+		)
+	}
+	temp := &v1.AppTemplate{
+		Name:        req.Name,
+		Description: req.Description,
+	}
+	if _, err := a.repo.AppTemplates().Insert(ctx, temp); err != nil {
 		return errors.WithCode(db.ErrDatabase, err.Error())
 	}
 	return nil
 }
 
-func (a *appTemplateService) Update(ctx context.Context, appTemplate *v1.AppTemplate, ops metav1.UpdateOptions) error {
-	if _, err := a.repo.AppTemplates().Update(ctx, appTemplate); err != nil {
+func (a *appTemplateService) Update(
+	ctx context.Context,
+	req *msg.UpdateAppTemplateRequest,
+	ops metav1.UpdateOptions,
+) error {
+	svc, err := a.repo.AppTemplates().GetById(ctx, req.Id, false)
+	if err != nil {
+		return errors.WithCode(code.ErrPageNotFound, err.Error())
+	}
+	exp := db.NewExpression()
+	if util.Trim(req.Name) != "" {
+		exp.And("name = ?", req.Name)
+		exp.And("if not in (?)", req.Id)
+	}
+	exit, _ := a.repo.AppTemplates().Exist(ctx, exp, false)
+	if exit {
+		return errors.WithCode(
+			code.ErrValidation,
+			fmt.Sprintf("%s The application template name already exists! Please change another name!", req.Name),
+		)
+	}
+	svc.Description = req.Description
+	svc.Name = req.Name
+	if _, err := a.repo.AppTemplates().Update(ctx, svc); err != nil {
 		return errors.WithCode(db.ErrDatabase, err.Error())
 	}
 	return nil

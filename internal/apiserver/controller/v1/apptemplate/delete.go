@@ -13,3 +13,25 @@
 // limitations under the License.
 
 package apptemplate
+
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/seacraft/component-base/pkg/core"
+	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
+	"github.com/seacraft/pkg/log"
+)
+
+// Delete delete a application template  by the id identifier.
+func (a *AppTemplateController) Delete(c *gin.Context) {
+	log.L(c).Info("delete app template function called.")
+	id, ok := a.ParseUint64(c, c.Param("id"))
+	if !ok {
+		return
+	}
+	if err := a.srv.AppTemplates().Delete(c, id, metav1.DeleteOptions{}); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+	core.WriteResponse(c, nil, nil)
+}

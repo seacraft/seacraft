@@ -29,7 +29,7 @@ func (a *AppServiceController) Delete(c *gin.Context) {
 	if !ok {
 		return
 	}
-	if err := a.srv.AppTemplates().Delete(c, id, metav1.DeleteOptions{}); err != nil {
+	if err := a.srv.AppService().Delete(c, id, metav1.DeleteOptions{}); err != nil {
 		core.WriteResponse(c, err, nil)
 		return
 	}

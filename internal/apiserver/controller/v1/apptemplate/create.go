@@ -17,27 +17,26 @@ package apptemplate
 import (
 	"github.com/gin-gonic/gin"
 
+	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
+	msg "github.com/seacraft/internal/apiserver/service/message/v1"
+
 	"github.com/seacraft/component-base/pkg/core"
 	"github.com/seacraft/errors"
-	v1 "github.com/seacraft/internal/apiserver/repository/model/v1"
 	"github.com/seacraft/internal/pkg/code"
 	"github.com/seacraft/pkg/log"
 )
 
+// Create add new  app template pairs to the storage.
 func (a *AppTemplateController) Create(c *gin.Context) {
-	log.L(c).Info("create app template function called.")
-
-	var r v1.AppTemplate
-
+	log.L(c).Info("create app template function called. ")
+	var r msg.CreateAppTemplateRequest
 	if err := c.ShouldBindJSON(&r); err != nil {
 		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
-
 		return
 	}
-
-	//if errs := r.Validate(); len(errs) != 0 {
-	//	core.WriteResponse(c, errors.WithCode(code.ErrValidation, errs.ToAggregate().Error()), nil)
-	//
-	//	return
-	//}
+	if err := a.srv.AppTemplates().Create(c, &r, metav1.CreateOptions{}); err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+	core.WriteResponse(c, nil, r)
 }

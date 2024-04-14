@@ -33,11 +33,11 @@ func (a *AppServiceController) Update(c *gin.Context) {
 		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
 		return
 	}
-	if id, ok := a.ParseUint64(c, c.Param("id")); !ok {
+	id, ok := a.ParseUint64(c, c.Param("id"))
+	if !ok {
 		return
-	} else {
-		r.Id = id
 	}
+	r.Id = id
 	if err := a.srv.AppService().Update(c, &r, metav1.UpdateOptions{}); err != nil {
 		core.WriteResponse(c, err, nil)
 		return

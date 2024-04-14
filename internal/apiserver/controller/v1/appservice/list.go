@@ -13,3 +13,29 @@
 // limitations under the License.
 
 package appservice
+
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/seacraft/component-base/pkg/core"
+	metav1 "github.com/seacraft/component-base/pkg/meta/v1"
+	"github.com/seacraft/errors"
+	"github.com/seacraft/internal/pkg/code"
+	"github.com/seacraft/pkg/log"
+)
+
+// List list all the application services.
+func (a *AppServiceController) List(c *gin.Context) {
+	log.L(c).Info("list app service function called.")
+	var r metav1.ListOptions
+	if err := c.ShouldBindJSON(&r); err != nil {
+		core.WriteResponse(c, errors.WithCode(code.ErrBind, err.Error()), nil)
+		return
+	}
+	svcs, err := a.srv.AppService().List(c, r)
+	if err != nil {
+		core.WriteResponse(c, err, nil)
+		return
+	}
+	core.WriteResponse(c, nil, svcs)
+}
