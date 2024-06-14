@@ -36,6 +36,6 @@ func NewExpression() *Expression {
 	}
 }
 
-func (e *Expression) And(query any, args ...any) {
-	e.List = append(e.List, NewPair(query, args))
+func (e *Expression) And(query any, arg any) {
+	e.List = append(e.List, NewPair(query, arg))
 }
